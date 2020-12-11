@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>福脚计算器</title>
+</head>
+<body>
+    <h1>jiojio计算器</h1>
+    <div class="calc-div" style="margin-top: 50px;">
+        <span>档线：</span>
+        <select id="line">
+            <option>95000</option>
+            <option>175000</option>
+            <option>212000</option>
+            <option>260000</option>
+        </select>
+    </div>
+   <div class="calc-div"><span>总代币值：</span><input id="max" value="112320" /></div>
+   <div class="calc-div"><span>关卡数/天： </span><input id="mission" value="78" /></div>
+   <div class="calc-div"><span>代币数/关：</span> <input id="token" value="120"/></div>
+   <div class="calc-div"><span>每次购买关数：</span> <input id="per-mission" value="3"/></div>
+   <div class="calc-div"><span id="dp-desc">每3关需要多少DP：</span> <input id="dp" value="5"/></div>
+    <div class="calc-div"><span>结果：</span><input id="result" disabled=true><div>
+    <div class="calc-div"><button id="calc-btn">计算</button></div>
+    </br>
+    </br>
+    <div class="calc-div"><span class="hint">计算方式是： </span></div>
+    <div class="calc-div"><span class="hint">结果 = ((档线 - 总代币值) ÷ [代币数/关] ÷ 3) x [每N关需要多少DP] </span></div>
+    <div class="calc-div"><span class="hint">【关卡数/天】 暂未参与计算 </span></div>
+</body>
+<script src="js/jquery.js"></script>
+<script src="js/jquery.min.js"></script>
+<script src="js/calc.js"></script>
+</html>

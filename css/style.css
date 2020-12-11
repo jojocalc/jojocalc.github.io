@@ -1,0 +1,13 @@
+body{
+    text-align: center;
+}
+.calc-div{
+    margin-top: 6px;
+}
+.calc-div span{
+    width: 100px;
+    height: 50px;
+}
+.hint{
+    color: red;
+}
