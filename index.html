@@ -9,12 +9,19 @@
 <body>
     <h1>jiojio计算器</h1>
     <div class="calc-div" style="margin-top: 50px;">
-        <span>活动：</span>
+        <span>活动类型：</span>
         <select id="events">
             <option>Pop Quiz</option>
-            <option>Birthday Events</option>
+            <option selected="true">Birthday Events</option>
             <option>Otaku BootCamp</option>
             <option>Lonely Deil</option>
+        </select>
+    </div>
+    <div class="calc-div">
+        <span>活动名称：</span>
+        <select id="second-events">
+            <option selected="true">Henry and the Seven Lords</option>
+            <option> Angelic Demons</option>
         </select>
     </div>
     <div class="calc-div"><span>当前活动：</span><span id="current-event">Pop Quiz</span></div>
@@ -45,26 +52,25 @@
 
     <div class="calc-div"><span>附加次数： </span>
         <!-- 地图全推默认78 -->
-        <input id="add-ad" type="radio" name="add-num" value="5" checked="true" /><label for="add-ad">广告看完(+5次/天)</label>
+        <input id="add-ad" type="radio" name="add-num" value="5" /><label for="add-ad">广告看完(+5次/天)</label>
         <!-- 自己输入,最小值为0，最大值为26 -->
-        <input id="add-none" type="radio" name="add-num" value="0" /><label for="add-none">无</label>
+        <input id="add-none" type="radio" name="add-num" value="0" checked="true" /><label for="add-none">无</label>
     </div>
    <div class="calc-div"><button id="calc-btn">计算</button></div>
 
    <div id="result-div" class="calc-div" hidden="true">
         <span>结果：距离活动结束还剩</span>
-        <label id="result-day">1</label>天,
-        要拿到<label id="result-type">SSR1</label>
-        还需要<label id="result-count">1</label>次,
-        花费<label id="result-dp">1</label>DP
+        <label id="result-day"> </label>天,
+        要拿到<label id="result-type"> </label>
+        还需要<label id="result-count"> </label>次,
+        花费<label id="result-dp"> </label>DP
     <div>
 
     </br>
     </br>
     <div class="calc-div"><span class="hint">每购买3关需要5DP</span></div>
     <div class="calc-div"><span class="hint">计算方式是： </span></div>
-    <div class="calc-div"><span class="hint">结果 = ((档线 - 总代币值) ÷ [代币数/关] ÷ 3) x 5</span></div>
-    <div class="calc-div"><span class="hint">【每日推关数】暂未参与计算</span></div>
+    <div class="calc-div"><span class="hint">结果 = ((档线 - 现有代币 - (剩余天数 * 每天推关数 * 120)) ÷ [代币数/关] ÷ 3) x 5</span></div>
 </body>
 <script src="js/jquery.js"></script>
 <script src="js/jquery.min.js"></script>

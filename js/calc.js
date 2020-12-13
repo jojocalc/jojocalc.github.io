@@ -1,19 +1,17 @@
 $(document).ready(function(){
 
-    $("#start-time").html("2020/11/20 00:00:00")
-    $("#end-time").html("2020/12/04 14:00:00")
+    // 参与运算的天数
+    var restDay = 0;
+
+    $("#start-time").html("2020/12/09 00:00:00")
+    $("#end-time").html("2020/12/20 14:00:00")
     var endTime = $("#end-time").html();
     var time = getDistanceSpecifiedTime(endTime);
     $("#rest-time").html(time);
-
-    // 根据关卡
-    $("#per-mission").on('input',function(){
-        console.log(111)
-        $("#dp-desc").html("每"+$(this).val()+"关需要多少DP：")
-    });
+    $("#current-event").html($('#events').val() + ' - ' + $("#second-events").val())
 
     $('#events').change(function() {
-        $("#current-event").html($(this).val())
+        $("#current-event").html($(this).val() + ' - ' + $("#second-events").val())
         // var options=$("#card-type option:selected");
         //TODO 修改活动时间
         if('Pop Quiz' == $(this).val()) {
@@ -24,19 +22,24 @@ $(document).ready(function(){
             $("#end-time").html("2020/12/20 14:00:00")
         } else if ('Otaku BootCamp' == $(this).val()) {
             $("#start-time").html("2020/12/21 00:00:00")
-            $("#end-time").html("2021/1/20 14:00:00")
+            $("#end-time").html("2021/01/20 14:00:00")
         } else if ('Lonely Deil' == $(this).val()) {
-            $("#start-time").html("2021/2/09 00:00:00")
-            $("#end-time").html("2021/2/20 14:00:00")
+            $("#start-time").html("2021/02/09 00:00:00")
+            $("#end-time").html("2021/02/20 14:00:00")
+        } else if ('New World' == $(this).val()) {
+            $("#start-time").html("2020/12/09 00:00:00")
+            $("#end-time").html("2020/12/20 14:00:00")
         }
         //计算结束时间
         var endTime = $("#end-time").html();
         var time = getDistanceSpecifiedTime(endTime);
         $("#rest-time").html(time);
+        $("#result-div").hide();
     })
 
     $('#card-type').change(function() {
         $("#line").html($(this).val())
+        $("#result-div").hide();
     })
 
     /**
@@ -59,8 +62,11 @@ $(document).ready(function(){
         var h = Math.floor(t / 1000 / 60 / 60 % 24);
         var m = Math.floor(t / 1000 / 60 % 60);
         var s = Math.floor(t / 1000 % 60);
-        if(d <= 0) {
+        if(d < 0) {
             return '已结束';
+        }
+        if(h > 0) {
+            restDay = parseInt(d) + 1;
         }
         var html = d + " 天" + h + " 时";
         // var html = d + " 天" + h + " 时" + m + " 分" + s + " 秒";
@@ -71,8 +77,17 @@ $(document).ready(function(){
 
     // 计算
     $("#calc-btn").click(function(){
+        if(new Date($('#start-time').html()) > new Date()) {
+            alert("活动未开始");
+            return
+        }
+
+        if(new Date($('#end-time').html()) < new Date()) {
+            alert("活动已结束");
+            return
+        }
         var currentDb = $("#current-db").val();
-        var mission = $("#mission").val();
+        var mission = 0;
         var permission = 3;
         var dp = 5;
         //档线
@@ -84,9 +99,8 @@ $(document).ready(function(){
         //如果小于0 就返回0
         if(result <= 0) {
             $("#result-div").show();
-
             $("#result-day").html($("#rest-time").html().split("天")[0])
-            $("#result-type").html($("#card-type").val())
+            $("#result-type").html($("#card-type").find("option:selected").text())
             $("#result-count").html(0)
             $("#result-dp").html(0);
             return
@@ -98,13 +112,15 @@ $(document).ready(function(){
         } else {
             mission = $("#part-mission").val();
         }
+        //闯关数按3来算
+        mission*=3
         console.log(mission);
         //附加关卡值
         var addNum = $('input[name="add-num"]:checked').val();
-        mission+=addNum;
+        mission = parseInt(mission) + parseInt(addNum);
 
         //关卡数 = 差值 除以 每关可以获取的代币数
-        var resultCount = Math.ceil(result / token);
+        var resultCount = Math.ceil(result / token) - (mission * restDay);
         console.log("关卡数："+resultCount)
         //每3关的dp数 = 关卡数 除以 3
         resultCount = Math.ceil(resultCount / permission)
@@ -113,8 +129,8 @@ $(document).ready(function(){
 
         $("#result-div").show();
 
-        $("#result-day").html($("#rest-time").html().split("天")[0])
-        $("#result-type").html($("#card-type").val())
+        $("#result-day").html(restDay)
+        $("#result-type").html($("#card-type").find("option:selected").text())
         $("#result-count").html(resultCount)
         $("#result-dp").html(result);
      
