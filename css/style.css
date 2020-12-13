@@ -2,7 +2,7 @@ body{
     text-align: center;
 }
 .calc-div{
-    margin-top: 6px;
+    margin-top: 8px;
 }
 .calc-div span{
     width: 100px;
@@ -10,4 +10,8 @@ body{
 }
 .hint{
     color: red;
+}
+#result-div label{
+    color: red; 
+    font-weight: bold;
 }

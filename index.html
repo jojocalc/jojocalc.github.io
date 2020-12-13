@@ -9,26 +9,62 @@
 <body>
     <h1>jiojio计算器</h1>
     <div class="calc-div" style="margin-top: 50px;">
-        <span>档线：</span>
-        <select id="line">
-            <option>95000</option>
-            <option>175000</option>
-            <option>212000</option>
-            <option>260000</option>
+        <span>活动：</span>
+        <select id="events">
+            <option>Pop Quiz</option>
+            <option>Birthday Events</option>
+            <option>Otaku BootCamp</option>
+            <option>Lonely Deil</option>
         </select>
     </div>
-   <div class="calc-div"><span>总代币值：</span><input id="max" value="112320" /></div>
-   <div class="calc-div"><span>关卡数/天： </span><input id="mission" value="78" /></div>
-   <div class="calc-div"><span>代币数/关：</span> <input id="token" value="120"/></div>
-   <div class="calc-div"><span>每次购买关数：</span> <input id="per-mission" value="3"/></div>
-   <div class="calc-div"><span id="dp-desc">每3关需要多少DP：</span> <input id="dp" value="5"/></div>
-    <div class="calc-div"><span>结果：</span><input id="result" disabled=true><div>
-    <div class="calc-div"><button id="calc-btn">计算</button></div>
+    <div class="calc-div"><span>当前活动：</span><span id="current-event">Pop Quiz</span></div>
+    <div class="calc-div"><span>活动时间：</span><span id="start-time">2020/01/01 00:00:00</span> — <span id="end-time">2020/02/01 00:00:00</span></div>
+    <!-- 根据活动时间来计算 -->
+    <div class="calc-div"><span>距离活动结束还剩：</span><span id="rest-time">11天21小时</span></div>
+    <div class="calc-div">
+        <span>卡牌类型：</span>
+        <select id="card-type">
+            <option value="95000" selected="true">SSR①</option>
+            <option value="175000">SSR②</option>
+            <option value="212000">UR①</option>
+            <option value="260000">UR②</option>
+        </select>
+    </div>
+    <!-- 根据卡牌类型变 -->
+    <div class="calc-div"><span>档线：</span><span id="line">95000</span></div>
+    <!-- 最小值为0，需要校验负数 -->
+   <div class="calc-div"><span>现有代币：</span><input type="number" id="current-db" min="0" value="0" /></div>
+   <div class="calc-div"><span>代币数/关：</span> <input type="number" id="token"  min="120" value="120"/></div>
+
+   <div class="calc-div"><span>每天推关数： </span>
+        <!-- 地图全推默认78 -->
+        <input id="finish-all" type="radio" name="mission-num" value="finish-all" checked="true"/><label for="finish-all">地图全推</label>
+        <!-- 自己输入,最小值为0，最大值为26 -->
+        <input id="unfinish" type="radio" name="mission-num"  value="unfinish"/><label for="unfinish">地图没推完</label><input id="part-mission" type="number" min="0" max="26" value="0" />
+    </div>
+
+    <div class="calc-div"><span>附加次数： </span>
+        <!-- 地图全推默认78 -->
+        <input id="add-ad" type="radio" name="add-num" value="5" checked="true" /><label for="add-ad">广告看完(+5次/天)</label>
+        <!-- 自己输入,最小值为0，最大值为26 -->
+        <input id="add-none" type="radio" name="add-num" value="0" /><label for="add-none">无</label>
+    </div>
+   <div class="calc-div"><button id="calc-btn">计算</button></div>
+
+   <div id="result-div" class="calc-div" hidden="true">
+        <span>结果：距离活动结束还剩</span>
+        <label id="result-day">1</label>天,
+        要拿到<label id="result-type">SSR1</label>
+        还需要<label id="result-count">1</label>次,
+        花费<label id="result-dp">1</label>DP
+    <div>
+
     </br>
     </br>
+    <div class="calc-div"><span class="hint">每购买3关需要5DP</span></div>
     <div class="calc-div"><span class="hint">计算方式是： </span></div>
-    <div class="calc-div"><span class="hint">结果 = ((档线 - 总代币值) ÷ [代币数/关] ÷ 3) x [每N关需要多少DP] </span></div>
-    <div class="calc-div"><span class="hint">【关卡数/天】 暂未参与计算 </span></div>
+    <div class="calc-div"><span class="hint">结果 = ((档线 - 总代币值) ÷ [代币数/关] ÷ 3) x 5</span></div>
+    <div class="calc-div"><span class="hint">【每日推关数】暂未参与计算</span></div>
 </body>
 <script src="js/jquery.js"></script>
 <script src="js/jquery.min.js"></script>
