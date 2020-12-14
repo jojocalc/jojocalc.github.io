@@ -26,14 +26,29 @@ $(document).ready(function(){
         } else if ('Lonely Deil' == $(this).val()) {
             $("#start-time").html("2021/02/09 00:00:00")
             $("#end-time").html("2021/02/20 14:00:00")
-        } else if ('New World' == $(this).val()) {
-            $("#start-time").html("2020/12/09 00:00:00")
-            $("#end-time").html("2020/12/20 14:00:00")
         }
         //计算结束时间
         var endTime = $("#end-time").html();
         var time = getDistanceSpecifiedTime(endTime);
         $("#rest-time").html(time);
+        $("#result-div").hide();
+    })
+
+    $('#second-events').change(function() {
+        $("#current-event").html($('#events').val() + ' - ' + $(this).val())
+        var option = $("#card-type")[0].options;
+        if('Angelic Demons' == $(this).val()) {
+            option[0].value = "100000";
+            option[1].value = "188000";
+            option[2].value = "249000";
+            option[3].value = "294000";
+        } else {
+            option[0].value = "95000";
+            option[1].value = "175000";
+            option[2].value = "212000";
+            option[3].value = "260000";
+        }
+        $("#line").html($("#card-type").val())
         $("#result-div").hide();
     })
 
@@ -102,6 +117,7 @@ $(document).ready(function(){
             $("#result-day").html($("#rest-time").html().split("天")[0])
             $("#result-type").html($("#card-type").find("option:selected").text())
             $("#result-count").html(0)
+            $("#result-hp").html(0);
             $("#result-dp").html(0);
             return
         }
@@ -132,6 +148,7 @@ $(document).ready(function(){
         $("#result-day").html(restDay)
         $("#result-type").html($("#card-type").find("option:selected").text())
         $("#result-count").html(resultCount)
+        $("#result-hp").html(resultCount*8);
         $("#result-dp").html(result);
      
     });
