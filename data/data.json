@@ -1,0 +1,137 @@
+{
+    "types": [
+        {
+            "name":"Pop quiz",
+            "hp": 8,
+            "events":[
+                {
+                    "name":"Angelic Demons",
+                    "jpName": "天使のような悪魔",
+                    "startDate": "2020/12/09",
+                    "endDate":"2020/12/20",
+                    "startTime": "09:00:00",
+                    "endTime": "14:00:00",
+                    "mission": 26,
+                    "cards":[
+                        {
+                            "type": "UR(Demon)",
+                            "name":"Not Taking It Off",
+                            "jpName":"脱ぎたくない",
+                            "line": 294000
+                        },
+                        {
+                            "type": "UR(Memory)",
+                            "name":"A Demon's Desire",
+                            "jpName":"悪魔の欲望",
+                            "line": 249000
+                        },
+                        {
+                            "type": "SSR(Demon)",
+                            "name":"How to Rejuvenate Mammon",
+                            "jpName":"マモンを復活させる方法",
+                            "line": 188000
+                        },
+                        {
+                            "type": "SSR(Memory)",
+                            "name":"Return My Glow",
+                            "jpName":"輝きを取り戻せ",
+                            "line": 100000
+                        }
+                    ]
+                },
+                {
+                    "name":"Henry and the Seven Lords",
+                    "jpName": "ヘンリーと共に歌おう",
+                    "startDate": "2020/11/23",
+                    "endDate":"2020/12/04",
+                    "startTime": "09:00:00",
+                    "endTime": "14:00:00",
+                    "mission": 26,
+                    "cards":[
+                        {
+                            "type": "UR(Demon)",
+                            "name":"The Lord of Shadow",
+                            "jpName":"陰の王の盟友",
+                            "line": 260000
+                        },
+                        {
+                            "type": "UR(Memory)",
+                            "name":"Singing With the Lords",
+                            "jpName":"七つの王と歌を",
+                            "line": 212000
+                        },
+                        {
+                            "type": "SSR(Demon)",
+                            "name":"Flies and Emptiness",
+                            "jpName":"蠅の王と虚無の王",
+                            "line": 175000
+                        },
+                        {
+                            "type": "SSR(Memory)",
+                            "name":"The Lord of Fools",
+                            "jpName":"愚の王とダンスレッスン",
+                            "line": 95000
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name":"Birthday Events",
+            "hp": 12,
+            "events":[
+                {
+                    "name":"Happy Birthday! Dear Satan2020",
+                    "jpName": "Happy Anniversary ! Dear Satan",
+                    "startDate": "2020/10/15",
+                    "endDate":"2020/10/21",
+                    "startTime": "09:00:00",
+                    "endTime": "14:00:00",
+                    "mission": 26,
+                    "cards":[
+                        {
+                            "type": "UR(Demon)",
+                            "name":"The Mysterious Box",
+                            "jpName":"サタンと不思議な箱",
+                            "line": 7500
+                        }
+                    ]
+                },
+                {
+                    "name":"Happy Birthday! Dear Mammon2020",
+                    "jpName": "Happy Anniversary ! Dear Mammon",
+                    "startDate": "2020/9/8",
+                    "endDate":"2020/9/14",
+                    "startTime": "09:00:00",
+                    "endTime": "14:00:00",
+                    "mission": 26,
+                    "cards":[
+                        {
+                            "type": "UR(Demon)",
+                            "name":"Special Day",
+                            "jpName":"特別な1日",
+                            "line": 7500
+                        }
+                    ]
+                },
+                {
+                    "name":"Happy Birthday! Dear Lucifer2020",
+                    "jpName": "Happy Anniversary ! Dear Lucifer",
+                    "startDate": "2020/6/6",
+                    "endDate":"2020/6/12",
+                    "startTime": "09:00:00",
+                    "endTime": "14:00:00",
+                    "mission": 26,
+                    "cards":[
+                        {
+                            "type": "UR(Demon)",
+                            "name":"Quality Time for Two",
+                            "jpName":"二人きりのハッピーバースデータイム",
+                            "line": 7000
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
