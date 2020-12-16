@@ -2,6 +2,7 @@
     "types": [
         {
             "name":"Pop quiz",
+            "jpName":"Pop quiz",
             "hp": 8,
             "events":[
                 {
@@ -77,7 +78,85 @@
             ]
         },
         {
+            "name":"Lonely Devil",
+            "jpName":"Lonely Devil",
+            "hp": 12,
+            "events":[
+                {
+                    "name":"Whose Glass Slippers Are These?",
+                    "jpName": "ガラスの靴は誰の手に？",
+                    "startDate": "2020/6/13",
+                    "endDate":"2020/6/25",
+                    "startTime": "09:00:00",
+                    "endTime": "14:00:00",
+                    "mission": 26,
+                    "cards":[
+                        {
+                            "type": "UR(Demon)",
+                            "name":"Time for the Main Event!",
+                            "jpName":"プロデュース大作戦",
+                            "line": 280000
+                        },
+                        {
+                            "type": "UR(Memory)",
+                            "name":"Romance Royale",
+                            "jpName":"大乱闘恋愛ゲーム？",
+                            "line": 230000
+                        },
+                        {
+                            "type": "SSR(Demon)",
+                            "name":"The Award Goes to...?",
+                            "jpName":"ダンス賞は誰の手に？",
+                            "line": 180000
+                        },
+                        {
+                            "type": "SSR(Memory)",
+                            "name":"Once Upon a Time",
+                            "jpName":"ワンス・アポン・ア・タイム",
+                            "line": 92000
+                        }
+                    ]
+                },
+                {
+                    "name":"Calling out to You",
+                    "jpName": "あなたを呼ぶ声",
+                    "startDate": "2020/5/27",
+                    "endDate":"2020/6/7",
+                    "startTime": "09:00:00",
+                    "endTime": "14:00:00",
+                    "mission": 26,
+                    "cards":[
+                        {
+                            "type": "UR(Demon)",
+                            "name":"Even If You're Far Away",
+                            "jpName":"離れていても",
+                            "line": 243000
+                        },
+                        {
+                            "type": "UR(Memory)",
+                            "name":"No Eavesdropping!",
+                            "jpName":"盗み聞きにはご注意を！",
+                            "line": 113000
+                        },
+                        {
+                            "type": "SSR(Demon)",
+                            "name":"Create Your Own Avatar?",
+                            "jpName":"アバターまでも……？",
+                            "line": 157000
+                        },
+                        {
+                            "type": "SSR(Memory)",
+                            "name":"Morning Voice",
+                            "jpName":"モーニングボイス！",
+                            "line": 80000
+                        }
+                    ]
+                }
+            ]
+        },
+        {
             "name":"Birthday Events",
+            "jpName":"Birthday Events",
             "hp": 12,
             "events":[
                 {

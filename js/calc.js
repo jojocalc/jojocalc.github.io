@@ -1,61 +1,223 @@
+// 数据
+var jsonData = {};
+var types = [];
+// 语言
+var lang = 'zh'
+var nameKey= 'name'
+// 选中索引
+var typeIndex=0;
+var eventIndex=0;
+// 参与运算的天数
+var restDay = 0;
+
+
+
 $(document).ready(function(){
+    // TODO语言切换监听，如果语言切换，需要重新执行一遍初始化
+    // lang = 'jp'
+    // nameKey = 'jpName'
+    // 初始化数据
+    initData();
+    // 初始化动作监听
+    initListener()
 
-    // 参与运算的天数
-    var restDay = 0;
+    // 读取data.js
+    function initData(){
+        $.ajax({
+            url: "data/data.json",
+            type: "GET",
+            dataType: "json",
+            success: function(data) {
+                console.log(data)
+                jsonData = data;
+                // 初始化界面
+                initView();
+            },
+            error: function(data){
+                console.log(data)
+            }
+        })
+    }
 
-    $("#start-time").html("2020/12/09 00:00:00")
-    $("#end-time").html("2020/12/20 14:00:00")
-    var endTime = $("#end-time").html();
-    var time = getDistanceSpecifiedTime(endTime);
-    $("#rest-time").html(time);
-    $("#current-event").html($('#events').val() + ' - ' + $("#second-events").val())
+    //初始化视图
+    function initView(){
+        types = jsonData['types'];
 
-    $('#events').change(function() {
-        $("#current-event").html($(this).val() + ' - ' + $("#second-events").val())
-        // var options=$("#card-type option:selected");
-        //TODO 修改活动时间
-        if('Pop Quiz' == $(this).val()) {
-            $("#start-time").html("2020/11/20 00:00:00")
-            $("#end-time").html("2020/12/04 14:00:00")
-        } else if ('Birthday Events' == $(this).val()) {
-            $("#start-time").html("2020/12/09 00:00:00")
-            $("#end-time").html("2020/12/20 14:00:00")
-        } else if ('Otaku BootCamp' == $(this).val()) {
-            $("#start-time").html("2020/12/21 00:00:00")
-            $("#end-time").html("2021/01/20 14:00:00")
-        } else if ('Lonely Deil' == $(this).val()) {
-            $("#start-time").html("2021/02/09 00:00:00")
-            $("#end-time").html("2021/02/20 14:00:00")
-        }
-        //计算结束时间
+        // 填充活动类型
+        $("#events").empty();
+        $.each(types, function(p1, p2) {
+            var option = $('<option>'+this[nameKey]+'</option>');
+            $("#events").append(option)
+        });
+
+        // 填充活动名称
+        var type = types[typeIndex]
+        var events = type['events']
+        $("#second-events").empty();
+        $.each(events, function(p1, p2) {
+            var option = $('<option>'+this[nameKey]+'</option>');
+            $("#second-events").append(option)
+        }) 
+
+        var event = events[eventIndex];
+
+        //填充卡片类型
+        var cards =  event['cards'];
+        $("#card-type").empty();
+        $.each(cards, function(p1, p2) {
+            var text = this['type']+'-'+this[nameKey];
+            var option = $('<option value="'+this['line']+'">'+text+'</option>');
+            $("#card-type").append(option)
+        }) 
+        // 填充活动时间
+        $("#start-time").html(event['startDate']+' '+event['startTime'])
+        $("#end-time").html(event['endDate']+' '+event['endTime'])
         var endTime = $("#end-time").html();
         var time = getDistanceSpecifiedTime(endTime);
+        // 填充剩余时间
         $("#rest-time").html(time);
-        $("#result-div").hide();
-    })
-
-    $('#second-events').change(function() {
-        $("#current-event").html($('#events').val() + ' - ' + $(this).val())
-        var option = $("#card-type")[0].options;
-        if('Angelic Demons' == $(this).val()) {
-            option[0].value = "100000";
-            option[1].value = "188000";
-            option[2].value = "249000";
-            option[3].value = "294000";
-        } else {
-            option[0].value = "95000";
-            option[1].value = "175000";
-            option[2].value = "212000";
-            option[3].value = "260000";
-        }
+        // 填充当前活动
+        $("#current-event").html($('#events').val() + ' - ' + $("#second-events").val())
+        //填充档线
         $("#line").html($("#card-type").val())
-        $("#result-div").hide();
-    })
+    }
 
-    $('#card-type').change(function() {
-        $("#line").html($(this).val())
-        $("#result-div").hide();
-    })
+    function initListener(){
+        $('#lang-zh-btn').click(function(){
+            lang='zh'
+            nameKey= 'name'
+            initView();
+        })
+        $('#lang-jp-btn').click(function(){
+            lang='jp'
+            nameKey= 'jpName'
+            initView();
+        })
+
+        $('#events').change(function() {
+            typeIndex=$("#events ").get(0).selectedIndex;
+            $("#current-event").html($(this).val() + ' - ' + $("#second-events").val())
+            // 填充活动名称
+            var type = types[typeIndex]
+            var events = type['events']
+            $("#second-events").empty();
+            $.each(events, function(p1, p2) {
+                var option = $('<option>'+this[nameKey]+'</option>');
+                $("#second-events").append(option)
+            }) 
+
+            var event = events[eventIndex];
+            // 填充活动时间
+            $("#start-time").html(event['startDate']+' '+event['startTime'])
+            $("#end-time").html(event['endDate']+' '+event['endTime'])
+            var endTime = $("#end-time").html();
+            var time = getDistanceSpecifiedTime(endTime);
+            // 填充剩余时间
+            $("#rest-time").html(time);
+            $("#result-div").hide();
+        })
+
+        $('#second-events').change(function() {
+            eventIndex=$("#second-events ").get(0).selectedIndex;
+            $("#current-event").html($('#events').val() + ' - ' + $(this).val())
+            var type = types[typeIndex]
+            var events = type['events']
+            var event = events[eventIndex]
+
+             // 填充活动时间
+             $("#start-time").html(event['startDate']+' '+event['startTime'])
+             $("#end-time").html(event['endDate']+' '+event['endTime'])
+             var endTime = $("#end-time").html();
+             var time = getDistanceSpecifiedTime(endTime);
+             // 填充剩余时间
+             $("#rest-time").html(time);
+            //填充卡牌数据
+             //填充卡片类型
+            var cards =  event['cards'];
+            $("#card-type").empty();
+            $.each(cards, function(p1, p2) {
+                var text = this['type']+'-'+this[nameKey];
+                var option = $('<option value="'+this['line']+'">'+text+'</option>');
+                $("#card-type").append(option)
+            }) 
+            $("#line").html($("#card-type").val())
+            $("#result-div").hide();
+        })
+
+        //监听卡牌变更
+        $('#card-type').change(function() {
+            $("#line").html($(this).val())
+            $("#result-div").hide();
+        })
+
+        // 计算
+        $("#calc-btn").click(function(){
+            if(new Date($('#start-time').html()) > new Date()) {
+                alert("活动未开始");
+                return
+            }
+
+            if(new Date($('#end-time').html()) < new Date()) {
+                alert("活动已结束");
+                return
+            }
+            var currentDb = $("#current-db").val();
+            var mission = 0;
+            var permission = 3;
+            var dp = 5;
+            var type = types[typeIndex]
+            var events = type['events']
+            var event = events[eventIndex]
+            //档线
+            var line = $("#line").html();
+            //差值 = 档线-总代币
+            var result = line - currentDb;
+            //代币数/关
+            var token = $("#token").val();
+            //如果小于0 就返回0
+            if(result <= 0) {
+                $("#result-div").show();
+                $("#result-day").html($("#rest-time").html().split("天")[0])
+                $("#result-type").html($("#card-type").find("option:selected").text())
+                $("#result-count").html(0)
+                $("#result-hp").html(0);
+                $("#result-dp").html(0);
+                return
+            }
+            //计算每日关卡数
+            var missionNum = $('input[name="mission-num"]:checked').val(); 
+            if('finish-all' == missionNum) {
+                mission = event['mission']
+            } else {
+                mission = $("#part-mission").val();
+            }
+            //闯关数按3来算
+            mission*=3
+            console.log(mission);
+            //附加关卡值
+            var addNum = $('input[name="add-num"]:checked').val();
+            mission = parseInt(mission) + parseInt(addNum);
+
+            //关卡数 = 差值 除以 每关可以获取的代币数
+            var resultCount = Math.ceil(result / token) - (mission * restDay);
+            console.log("关卡数："+resultCount)
+            //每3关的dp数 = 关卡数 除以 3
+            resultCount = Math.ceil(resultCount / permission)
+            // 最终结果 = 每3关的dp数 * 5
+            result = resultCount * dp;
+
+            $("#result-div").show();
+
+            $("#result-day").html(restDay)
+            $("#result-type").html($("#card-type").find("option:selected").text())
+            $("#result-count").html(resultCount)
+            var type = types[typeIndex]
+            var hp = type['hp'];
+            $("#result-hp").html(resultCount*hp);
+            $("#result-dp").html(result);
+        
+        });
+    }
 
     /**
      * 获取距离指定时间还有多少天
@@ -88,68 +250,5 @@ $(document).ready(function(){
         return html;
     }
 
-
-
-    // 计算
-    $("#calc-btn").click(function(){
-        if(new Date($('#start-time').html()) > new Date()) {
-            alert("活动未开始");
-            return
-        }
-
-        if(new Date($('#end-time').html()) < new Date()) {
-            alert("活动已结束");
-            return
-        }
-        var currentDb = $("#current-db").val();
-        var mission = 0;
-        var permission = 3;
-        var dp = 5;
-        //档线
-        var line = $("#line").html();
-        //差值 = 档线-总代币
-        var result = line - currentDb;
-        //代币数/关
-        var token = $("#token").val();
-        //如果小于0 就返回0
-        if(result <= 0) {
-            $("#result-div").show();
-            $("#result-day").html($("#rest-time").html().split("天")[0])
-            $("#result-type").html($("#card-type").find("option:selected").text())
-            $("#result-count").html(0)
-            $("#result-hp").html(0);
-            $("#result-dp").html(0);
-            return
-        }
-        //计算每日关卡数
-        var missionNum = $('input[name="mission-num"]:checked').val(); 
-        if('finish-all' == missionNum) {
-            mission = 26
-        } else {
-            mission = $("#part-mission").val();
-        }
-        //闯关数按3来算
-        mission*=3
-        console.log(mission);
-        //附加关卡值
-        var addNum = $('input[name="add-num"]:checked').val();
-        mission = parseInt(mission) + parseInt(addNum);
-
-        //关卡数 = 差值 除以 每关可以获取的代币数
-        var resultCount = Math.ceil(result / token) - (mission * restDay);
-        console.log("关卡数："+resultCount)
-        //每3关的dp数 = 关卡数 除以 3
-        resultCount = Math.ceil(resultCount / permission)
-        // 最终结果 = 每3关的dp数 * 5
-        result = resultCount * dp;
-
-        $("#result-div").show();
-
-        $("#result-day").html(restDay)
-        $("#result-type").html($("#card-type").find("option:selected").text())
-        $("#result-count").html(resultCount)
-        $("#result-hp").html(resultCount*8);
-        $("#result-dp").html(result);
-     
-    });
 });
+
