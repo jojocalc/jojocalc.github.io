@@ -41,6 +41,7 @@ $(document).ready(function(){
 
     //初始化视图
     function initView(){
+        initLang();
         types = jsonData['types'];
 
         // 填充活动类型
@@ -96,7 +97,6 @@ $(document).ready(function(){
 
         $('#events').change(function() {
             typeIndex=$("#events ").get(0).selectedIndex;
-            $("#current-event").html($(this).val() + ' - ' + $("#second-events").val())
             // 填充活动名称
             var type = types[typeIndex]
             var events = type['events']
@@ -105,6 +105,7 @@ $(document).ready(function(){
                 var option = $('<option>'+this[nameKey]+'</option>');
                 $("#second-events").append(option)
             }) 
+            $("#current-event").html($(this).val() + ' - ' + $("#second-events").val())
 
             var event = events[eventIndex];
             // 填充活动时间
@@ -240,7 +241,7 @@ $(document).ready(function(){
         var m = Math.floor(t / 1000 / 60 % 60);
         var s = Math.floor(t / 1000 % 60);
         if(d < 0) {
-            return '已结束';
+            return lang == 'zh'?'已结束':'終わり';
         }
         if(h > 0) {
             restDay = parseInt(d) + 1;
@@ -248,6 +249,21 @@ $(document).ready(function(){
         var html = d + " 天" + h + " 时";
         // var html = d + " 天" + h + " 时" + m + " 分" + s + " 秒";
         return html;
+    }
+
+    function initLang(){
+        jQuery.i18n.properties({//加载资浏览器语言对应的资源文件
+            name: 'lang', //资源文件名称
+            path:'./lang/', //资源文件路径
+            language: lang,
+            cache: false,
+            mode:'map', //用Map的方式使用资源文件中的值
+            callback: function() {//加载成功后设置显示内容
+              for(var i in $.i18n.map){// 
+                $('[data-lang="'+i+'"]').text($.i18n.map[i]);
+              }
+            }
+          });
     }
 
 });

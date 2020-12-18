@@ -8,23 +8,23 @@
 </head>
 <body>
     <div class="lang-div"><button id="lang-zh-btn">中</button><button id="lang-jp-btn">日</button></div>
-    <h1>jiojio计算器</h1>
+    <h1 data-lang="calc.name">jiojio计算器</h1>
     <div class="calc-div" style="margin-top: 50px;">
-        <span>活动类型：</span>
+        <span data-lang="event.type">活动类型：</span>
         <select id="events">
         </select>
     </div>
     <div class="calc-div">
-        <span>活动名称：</span>
+        <span data-lang="event.name">活动名称：</span>
         <select id="second-events">
         </select>
     </div>
-    <div class="calc-div"><span>当前活动：</span><span id="current-event">Pop Quiz</span></div>
-    <div class="calc-div"><span>活动时间：</span><span id="start-time">2020/01/01 00:00:00</span> — <span id="end-time">2020/02/01 00:00:00</span></div>
+    <div class="calc-div"><span data-lang="current.event">当前活动：</span><span id="current-event">Pop Quiz</span></div>
+    <div class="calc-div"><span data-lang="event.time">活动时间：</span><span id="start-time">2020/01/01 00:00:00</span> — <span id="end-time">2020/02/01 00:00:00</span></div>
     <!-- 根据活动时间来计算 -->
-    <div class="calc-div"><span>距离活动结束还剩：</span><span id="rest-time">11天21小时</span></div>
+    <div class="calc-div"><span data-lang="event.time.hint">距离活动结束还剩：</span><span id="rest-time">11天21小时</span></div>
     <div class="calc-div">
-        <span>卡牌类型：</span>
+        <span data-lang="card.type">卡牌类型：</span>
         <select id="card-type">
             <option value="95000" selected="true">SSR①</option>
             <option value="175000">SSR②</option>
@@ -33,25 +33,26 @@
         </select>
     </div>
     <!-- 根据卡牌类型变 -->
-    <div class="calc-div"><span>档线：</span><span id="line">95000</span></div>
+    <div class="calc-div"><span data-lang="line.text">档线：</span><span id="line">95000</span></div>
+    <div class="calc-div"><img src="imgs/temp.jpg"></div>
     <!-- 最小值为0，需要校验负数 -->
-   <div class="calc-div"><span>现有代币：</span><input type="number" id="current-db" min="0" value="0" /></div>
-   <div class="calc-div"><span>代币数/关：</span> <input type="number" id="token"  min="120" value="120"/></div>
+   <div class="calc-div"><span data-lang="own.db.text">现有代币：</span><input type="number" id="current-db" min="0" value="0" /></div>
+   <div class="calc-div"><span data-lang="db.per.mission">代币数/关：</span> <input type="number" id="token"  min="120" value="120"/></div>
 
-   <div class="calc-div"><span>每天推关数： </span>
+   <div class="calc-div"><span data-lang="finish.day.mission">每天推关数： </span>
         <!-- 地图全推默认78 -->
-        <input id="finish-all" type="radio" name="mission-num" value="finish-all" checked="true"/><label for="finish-all">地图全推</label>
+        <input id="finish-all" type="radio" name="mission-num" value="finish-all" checked="true"/><label for="finish-all" data-lang="finish.map.mission">地图全推</label>
         <!-- 自己输入,最小值为0，最大值为26 -->
-        <input id="unfinish" type="radio" name="mission-num"  value="unfinish"/><label for="unfinish">地图没推完</label><input id="part-mission" type="number" min="0" max="26" value="0" />
+        <input id="unfinish" type="radio" name="mission-num"  value="unfinish"/><label for="unfinish" data-lang="finish.custom.mission">地图没推完</label><input id="part-mission" type="number" min="0" max="26" value="0" />
     </div>
 
-    <div class="calc-div"><span>附加次数： </span>
+    <div class="calc-div"><span data-lang="add.mission.num">附加次数： </span>
         <!-- 地图全推默认78 -->
-        <input id="add-ad" type="radio" name="add-num" value="5" /><label for="add-ad">广告看完(+5次/天)</label>
+        <input id="add-ad" type="radio" name="add-num" value="5" /><label for="add-ad" data-lang="add.ad.mission.num">广告看完(+5次/天)</label>
         <!-- 自己输入,最小值为0，最大值为26 -->
-        <input id="add-none" type="radio" name="add-num" value="0" checked="true" /><label for="add-none">无</label>
+        <input id="add-none" type="radio" name="add-num" value="0" checked="true" /><label for="add-none" data-lang="add.none.mission">无</label>
     </div>
-   <div class="calc-div"><button id="calc-btn">计算</button></div>
+   <div class="calc-div"><button id="calc-btn" data-lang="button.calc.text">计算</button></div>
 
    <div id="result-div" class="calc-div" hidden="true">
         <span>结果：距离活动结束还剩</span>
@@ -70,5 +71,6 @@
 </body>
 <script src="js/jquery.js"></script>
 <script src="js/jquery.min.js"></script>
+<script src="js/jquery.i18n.properties.min.js"></script>
 <script src="js/calc.js"></script>
 </html>
