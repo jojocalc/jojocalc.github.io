@@ -2,6 +2,7 @@
 <html lang="zh">
 <head>
     <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/cxcalendar.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>福脚计算器</title>
@@ -20,7 +21,14 @@
         </select>
     </div>
     <div class="calc-div"><span data-lang="current.event">当前活动：</span><span id="current-event">Pop Quiz</span></div>
-    <div class="calc-div"><span data-lang="event.time">活动时间：</span><span id="start-time">2020/01/01 00:00:00</span> — <span id="end-time">2020/02/01 00:00:00</span></div>
+    <div class="calc-div">
+        <span data-lang="event.time">活动时间：</span>
+        <span id="start-time">2020/01/01 00:00:00</span>
+         — 
+         <span id="end-time">2020/02/01 00:00:00</span>
+         <input id="input-end-time" type="text" class="input" size="24" readonly>
+         
+    </div>
     <!-- 根据活动时间来计算 -->
     <div class="calc-div"><span data-lang="event.time.hint">距离活动结束还剩：</span><span id="rest-time">11天21小时</span></div>
     <div class="calc-div">
@@ -33,7 +41,7 @@
         </select>
     </div>
     <!-- 根据卡牌类型变 -->
-    <div class="calc-div"><span data-lang="line.text">档线：</span><span id="line">95000</span></div>
+    <div class="calc-div"><span data-lang="line.text">档线：</span><input id="line" value="95000" disabled='true' size="12" /><button id="btn-change-line">change</button></div>
     <div class="calc-div"><img src="imgs/temp.jpg"></div>
     <!-- 最小值为0，需要校验负数 -->
    <div class="calc-div"><span data-lang="own.db.text">现有代币：</span><input type="number" id="current-db" min="0" value="0" /></div>
@@ -71,6 +79,8 @@
 </body>
 <script src="js/jquery.js"></script>
 <script src="js/jquery.min.js"></script>
+<script src="js/cxcalendar.js"></script>
+<script src="js/cxcalendar.languages.js"></script>
 <script src="js/jquery.i18n.properties.min.js"></script>
 <script src="js/calc.js"></script>
 </html>

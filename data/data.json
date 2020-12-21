@@ -18,25 +18,35 @@
                             "type": "UR(Demon)",
                             "name":"Not Taking It Off",
                             "jpName":"脱ぎたくない",
+                            "image": "",
                             "line": 294000
                         },
                         {
                             "type": "UR(Memory)",
                             "name":"A Demon's Desire",
                             "jpName":"悪魔の欲望",
+                            "image": "",
                             "line": 249000
                         },
                         {
                             "type": "SSR(Demon)",
                             "name":"How to Rejuvenate Mammon",
                             "jpName":"マモンを復活させる方法",
+                            "image": "",
                             "line": 188000
                         },
                         {
                             "type": "SSR(Memory)",
                             "name":"Return My Glow",
                             "jpName":"輝きを取り戻せ",
+                            "image": "",
                             "line": 100000
+                        },
+                        {
+                            "type": "Custom",
+                            "name":"Custom",
+                            "jpName":"Custom",
+                            "line": 0
                         }
                     ]
                 },
@@ -72,6 +82,12 @@
                             "name":"The Lord of Fools",
                             "jpName":"愚の王とダンスレッスン",
                             "line": 95000
+                        },
+                        {
+                            "type": "Custom",
+                            "name":"Custom",
+                            "jpName":"Custom",
+                            "line": 0
                         }
                     ]
                 }
@@ -86,9 +102,9 @@
                     "name":"Whose Glass Slippers Are These?",
                     "jpName": "ガラスの靴は誰の手に？",
                     "startDate": "2020/6/13",
-                    "endDate":"2020/6/25",
+                    "endDate":"",
                     "startTime": "09:00:00",
-                    "endTime": "14:00:00",
+                    "endTime": "",
                     "mission": 26,
                     "cards":[
                         {
@@ -114,6 +130,12 @@
                             "name":"Once Upon a Time",
                             "jpName":"ワンス・アポン・ア・タイム",
                             "line": 92000
+                        },
+                        {
+                            "type": "Custom",
+                            "name":"Custom",
+                            "jpName":"Custom",
+                            "line": 0
                         }
                     ]
                 },
@@ -121,9 +143,9 @@
                     "name":"Calling out to You",
                     "jpName": "あなたを呼ぶ声",
                     "startDate": "2020/5/27",
-                    "endDate":"2020/6/7",
+                    "endDate":"",
                     "startTime": "09:00:00",
-                    "endTime": "14:00:00",
+                    "endTime": "",
                     "mission": 26,
                     "cards":[
                         {
@@ -149,6 +171,12 @@
                             "name":"Morning Voice",
                             "jpName":"モーニングボイス！",
                             "line": 80000
+                        },
+                        {
+                            "type": "Custom",
+                            "name":"Custom",
+                            "jpName":"Custom",
+                            "line": 0
                         }
                     ]
                 }

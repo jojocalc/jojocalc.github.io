@@ -10,16 +10,49 @@ var eventIndex=0;
 // 参与运算的天数
 var restDay = 0;
 
+var type = {}
+var events = {}
+var event = {}
+
+//TODO 自定义档线 、 自定义结束时间
+var cxCalendarApi;
+
 
 
 $(document).ready(function(){
-    // TODO语言切换监听，如果语言切换，需要重新执行一遍初始化
+
+    function getFormatTime(date){
+        console.log(date);
+        var y = date.getFullYear();
+        console.log(y);
+        var m = date.getMonth() + 1;
+        m = m < 10 ? '0' + m : m;
+        var d = date.getDate();
+        d = d < 10 ? ('0' + d) : d;
+        return y + '/' + m + '/' + d +" 14:00:00";
+    }
+
     // lang = 'jp'
     // nameKey = 'jpName'
     // 初始化数据
     initData();
     // 初始化动作监听
     initListener()
+    $('#input-end-time').val(getFormatTime(new Date()));
+
+    $('#input-end-time').cxCalendar({
+        type: 'datetime',
+        endDate: 2025,
+        format: 'Y/m/d H:i:s',
+        startDate: 2020
+    });
+
+    // $('#input-end-time').cxCalendar({
+    //     type: 'datetime',
+    //     format: 'Y-m-d H:i:s'
+    // }, function(api){
+    //     cxCalendarApi = api;
+    // });
 
     // 读取data.js
     function initData(){
@@ -52,35 +85,34 @@ $(document).ready(function(){
         });
 
         // 填充活动名称
-        var type = types[typeIndex]
-        var events = type['events']
+        type = types[typeIndex]
+        events = type['events']
         $("#second-events").empty();
         $.each(events, function(p1, p2) {
             var option = $('<option>'+this[nameKey]+'</option>');
             $("#second-events").append(option)
         }) 
 
-        var event = events[eventIndex];
+        this.event = events[eventIndex];
 
         //填充卡片类型
-        var cards =  event['cards'];
+        var cards =  this.event['cards'];
         $("#card-type").empty();
         $.each(cards, function(p1, p2) {
             var text = this['type']+'-'+this[nameKey];
             var option = $('<option value="'+this['line']+'">'+text+'</option>');
             $("#card-type").append(option)
         }) 
-        // 填充活动时间
-        $("#start-time").html(event['startDate']+' '+event['startTime'])
-        $("#end-time").html(event['endDate']+' '+event['endTime'])
-        var endTime = $("#end-time").html();
+        //TODO 判断结束世家是否为空
+        var endTime = getEndTime(this.event);
+       
         var time = getDistanceSpecifiedTime(endTime);
         // 填充剩余时间
         $("#rest-time").html(time);
         // 填充当前活动
         $("#current-event").html($('#events').val() + ' - ' + $("#second-events").val())
         //填充档线
-        $("#line").html($("#card-type").val())
+        $("#line").val($("#card-type").val())
     }
 
     function initListener(){
@@ -98,8 +130,8 @@ $(document).ready(function(){
         $('#events').change(function() {
             typeIndex=$("#events ").get(0).selectedIndex;
             // 填充活动名称
-            var type = types[typeIndex]
-            var events = type['events']
+            type = types[typeIndex]
+            events = type['events']
             $("#second-events").empty();
             $.each(events, function(p1, p2) {
                 var option = $('<option>'+this[nameKey]+'</option>');
@@ -107,11 +139,10 @@ $(document).ready(function(){
             }) 
             $("#current-event").html($(this).val() + ' - ' + $("#second-events").val())
 
-            var event = events[eventIndex];
+            this.event = events[eventIndex];
+            $("#line").attr('disabled', true);
             // 填充活动时间
-            $("#start-time").html(event['startDate']+' '+event['startTime'])
-            $("#end-time").html(event['endDate']+' '+event['endTime'])
-            var endTime = $("#end-time").html();
+            var endTime = getEndTime(this.event);
             var time = getDistanceSpecifiedTime(endTime);
             // 填充剩余时间
             $("#rest-time").html(time);
@@ -121,56 +152,74 @@ $(document).ready(function(){
         $('#second-events').change(function() {
             eventIndex=$("#second-events ").get(0).selectedIndex;
             $("#current-event").html($('#events').val() + ' - ' + $(this).val())
-            var type = types[typeIndex]
-            var events = type['events']
-            var event = events[eventIndex]
-
+            this.event = events[eventIndex]
+            $("#line").attr('disabled', true);
              // 填充活动时间
-             $("#start-time").html(event['startDate']+' '+event['startTime'])
-             $("#end-time").html(event['endDate']+' '+event['endTime'])
-             var endTime = $("#end-time").html();
+             var endTime = getEndTime(this.event);
              var time = getDistanceSpecifiedTime(endTime);
              // 填充剩余时间
              $("#rest-time").html(time);
             //填充卡牌数据
              //填充卡片类型
-            var cards =  event['cards'];
+            var cards =  this.event['cards'];
             $("#card-type").empty();
             $.each(cards, function(p1, p2) {
                 var text = this['type']+'-'+this[nameKey];
                 var option = $('<option value="'+this['line']+'">'+text+'</option>');
                 $("#card-type").append(option)
             }) 
-            $("#line").html($("#card-type").val())
+            $("#line").val($("#card-type").val())
             $("#result-div").hide();
         })
 
         //监听卡牌变更
         $('#card-type').change(function() {
-            $("#line").html($(this).val())
+            //TODO 处理自定义档线
+            $("#line").val($(this).val())
             $("#result-div").hide();
         })
 
+        /**
+         * 时间变更时，剩余时间自动变更
+         */
+        $('#input-end-time').on('change', function(){
+            var time = getDistanceSpecifiedTime($('#input-end-time').val());
+            $("#rest-time").html(time);
+        })
+
+        $("#btn-change-line").click(function(){
+            $("#line").attr('disabled', false);
+        })
+
+
+
         // 计算
         $("#calc-btn").click(function(){
-            if(new Date($('#start-time').html()) > new Date()) {
-                alert("活动未开始");
-                return
-            }
+            if($("#input-end-time").is(":hidden")){
+                if(new Date($('#start-time').html()) > new Date()) {
+                    alert("活动未开始");
+                    return
+                }
 
-            if(new Date($('#end-time').html()) < new Date()) {
-                alert("活动已结束");
-                return
+                if(new Date($('#end-time').html()) < new Date()) {
+                    alert("活动已结束");
+                    return
+                }
+            } else {
+                if(new Date($('#input-end-time').val()) < new Date()) {
+                    alert("活动已结束");
+                    return
+                }
             }
             var currentDb = $("#current-db").val();
             var mission = 0;
             var permission = 3;
             var dp = 5;
-            var type = types[typeIndex]
-            var events = type['events']
-            var event = events[eventIndex]
+            type = types[typeIndex]
+            events = type['events']
+            this.event = events[eventIndex]
             //档线
-            var line = $("#line").html();
+            var line = $("#line").val();
             //差值 = 档线-总代币
             var result = line - currentDb;
             //代币数/关
@@ -188,7 +237,7 @@ $(document).ready(function(){
             //计算每日关卡数
             var missionNum = $('input[name="mission-num"]:checked').val(); 
             if('finish-all' == missionNum) {
-                mission = event['mission']
+                mission = this.event['mission']
             } else {
                 mission = $("#part-mission").val();
             }
@@ -245,6 +294,8 @@ $(document).ready(function(){
         }
         if(h > 0) {
             restDay = parseInt(d) + 1;
+        } else {
+            restDay = 0;
         }
         var html = d + " 天" + h + " 时";
         // var html = d + " 天" + h + " 时" + m + " 分" + s + " 秒";
@@ -264,6 +315,29 @@ $(document).ready(function(){
               }
             }
           });
+    }
+
+    function getEndTime(curevent){
+        var endTime;
+        if(curevent['endDate'] == "") {
+            $("#start-time").hide();
+            $("#end-time").hide();
+            $("#input-end-date").show();
+            $("#input-end-time").show();
+            // console.log(cxCalendarApi);
+            // cxCalendarApi.show();
+            endTime = $("#end-time").html();
+        } else {
+            $("#start-time").show();
+            $("#end-time").show();
+            $("#input-end-date").hide();
+            $("#input-end-time").hide();
+             // 填充活动时间
+            $("#start-time").html(curevent['startDate']+' '+curevent['startTime']) 
+            $("#end-time").html(curevent['endDate']+' '+curevent['endTime'])
+            endTime = $("#end-time").html();
+        }
+        return endTime;
     }
 
 });
