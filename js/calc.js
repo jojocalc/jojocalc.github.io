@@ -32,20 +32,20 @@ $(document).ready(function(){
         return y + '/' + m + '/' + d +" 14:00:00";
     }
 
+    $('#input-end-time').val(getFormatTime(new Date()));
     // lang = 'jp'
     // nameKey = 'jpName'
     // 初始化数据
     initData();
     // 初始化动作监听
     initListener()
-    $('#input-end-time').val(getFormatTime(new Date()));
-
-    $('#input-end-time').cxCalendar({
-        type: 'datetime',
-        endDate: 2025,
-        format: 'Y/m/d H:i:s',
-        startDate: 2020
-    });
+    // $('#input-end-time').cxCalendar({
+    //     type: 'datetime',
+    //     endDate: 2025,
+    //     format: 'Y/m/d H:i:s',
+    //     startDate: 2020,
+    //     language: lang
+    // });
 
     // $('#input-end-time').cxCalendar({
     //     type: 'datetime',
@@ -315,6 +315,14 @@ $(document).ready(function(){
               }
             }
           });
+
+        $('#input-end-time').cxCalendar({
+            type: 'datetime',
+            endDate: 2025,
+            format: 'Y/m/d H:i:s',
+            startDate: 2020,
+            language: lang
+        });
     }
 
     function getEndTime(curevent){
