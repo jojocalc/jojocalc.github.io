@@ -23,9 +23,9 @@
         <h4><label data-lang="event.type">活动类型</label></h4>
     </div>
     <div calss="event-list index-only">
-        <div class="event-type" id="Pop Quiz" >Pop Quiz</div>
-        <div class="event-type" id="Lonely Devil" >Lonely Devil</div>
-        <div class="event-type" id="Birthday Events" >Birthday Events</div>
+        <div class="event-type" index='0' id="Pop Quiz" >Pop Quiz</div>
+        <div class="event-type" index='1' id="Lonely Devil" >Lonely Devil</div>
+        <div class="event-type" index='2' id="Birthday Events" >Birthday Events</div>
     </div>
     <div class="desc-title index-only">
         <h4><label data-lang="desc-title">使用说明</label></h4>
@@ -61,7 +61,7 @@
         <!-- 根据活动时间来计算 -->
         <div class="calc-div"><span data-lang="event.time.hint">距离活动结束还剩：</span><span id="rest-time">11天21小时</span></div>
         <div class="calc-div">
-            <span data-lang="card.type">卡牌类型：</span>
+            <span data-lang="card.type">目标卡牌：</span>
             <select id="card-type">
                 <option value="95000" selected="true">SSR①</option>
                 <option value="175000">SSR②</option>
