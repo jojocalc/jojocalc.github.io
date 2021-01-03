@@ -23,3 +23,40 @@ body{
     background-size: cover;
     background-position: center;
 }
+
+/* 新页面 */
+.selector-for-some-widget {
+    box-sizing: content-box;
+}
+/* 最上面间距10px */
+.lang-head {
+    margin-top: 10px;
+}
+/* 活动类型四个字 */
+.event-title {
+    margin-top: 40px;
+}
+/* 活动类型的样式 */
+.event-type {
+    margin-top: 10px;
+    margin-left: 100px;
+    margin-right: 100px;
+    padding: 10px;
+    border-radius: 5px;
+    border: solid 1px;
+}
+/* 使用说明四个字 */
+.desc-title {
+    margin-top: 40px;
+}
+
+/* 说明详情 */
+.desc-detail {
+    text-align: left;
+    margin-left: 100px;
+    margin-right: 100px;
+}
+/* 计算页面元素 */
+.calc-content {
+    margin-top: 50px;
+}

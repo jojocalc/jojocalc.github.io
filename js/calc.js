@@ -31,29 +31,13 @@ $(document).ready(function(){
         d = d < 10 ? ('0' + d) : d;
         return y + '/' + m + '/' + d +" 14:00:00";
     }
-
+    //设置日历初始值为 当天的下午14点
     $('#input-end-time').val(getFormatTime(new Date()));
-    // lang = 'jp'
-    // nameKey = 'jpName'
+
     // 初始化数据
     initData();
     // 初始化动作监听
     initListener()
-    // $('#input-end-time').cxCalendar({
-    //     type: 'datetime',
-    //     endDate: 2025,
-    //     format: 'Y/m/d H:i:s',
-    //     startDate: 2020,
-    //     language: lang
-    // });
-
-    // $('#input-end-time').cxCalendar({
-    //     type: 'datetime',
-    //     format: 'Y-m-d H:i:s'
-    // }, function(api){
-    //     cxCalendarApi = api;
-    // });
-
     // 读取data.js
     function initData(){
         $.ajax({
@@ -174,9 +158,14 @@ $(document).ready(function(){
 
         //监听卡牌变更
         $('#card-type').change(function() {
-            //TODO 处理自定义档线
-            $("#line").val($(this).val())
-            $("#result-div").hide();
+            //如果文字是Custom则可以输入自定义的档线
+            if($("#card-type").find("option:selected").text().indexOf('Custom') != -1 ) {
+                $("#line").attr('disabled', false);
+            } else {
+                $("#line").attr('disabled', true);
+                $("#line").val($(this).val())
+                $("#result-div").hide();
+            }
         })
 
         /**
@@ -187,9 +176,22 @@ $(document).ready(function(){
             $("#rest-time").html(time);
         })
 
-        $("#btn-change-line").click(function(){
-            $("#line").attr('disabled', false);
-        })
+        // $("#btn-change-line").click(function(){
+        //     $("#line").attr('disabled', false);
+        // })
+
+        /**
+         * 设置自定义关卡的最大值（不超过活动全推的关卡值）
+         */
+        $("#part-mission").on('change', function(){
+            type = types[typeIndex]
+            events = type['events']
+            this.event = events[eventIndex]
+            mission = this.event['mission']
+            if($("#part-mission").val() > mission) {
+                $("#part-mission").val(mission)
+            }
+        }) 
 
 
 
@@ -226,12 +228,7 @@ $(document).ready(function(){
             var token = $("#token").val();
             //如果小于0 就返回0
             if(result <= 0) {
-                $("#result-div").show();
-                $("#result-day").html($("#rest-time").html().split("天")[0])
-                $("#result-type").html($("#card-type").find("option:selected").text())
-                $("#result-count").html(0)
-                $("#result-hp").html(0);
-                $("#result-dp").html(0);
+                showZero();
                 return
             }
             //计算每日关卡数
@@ -243,13 +240,17 @@ $(document).ready(function(){
             }
             //闯关数按3来算
             mission*=3
-            console.log(mission);
+
             //附加关卡值
             var addNum = $('input[name="add-num"]:checked').val();
             mission = parseInt(mission) + parseInt(addNum);
 
             //关卡数 = 差值 除以 每关可以获取的代币数
             var resultCount = Math.ceil(result / token) - (mission * restDay);
+            if(resultCount <= 0) {
+                showZero();
+                return
+            }
             console.log("关卡数："+resultCount)
             //每3关的dp数 = 关卡数 除以 3
             resultCount = Math.ceil(resultCount / permission)
@@ -267,6 +268,15 @@ $(document).ready(function(){
             $("#result-dp").html(result);
         
         });
+    }
+
+    function showZero(){
+        $("#result-div").show();
+        $("#result-day").html($("#rest-time").html().split("天")[0])
+        $("#result-type").html($("#card-type").find("option:selected").text())
+        $("#result-count").html(0)
+        $("#result-hp").html(0);
+        $("#result-dp").html(0);
     }
 
     /**
