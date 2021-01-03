@@ -100,16 +100,19 @@ $(document).ready(function(){
     }
 
     function initListener(){
-        $('#lang-zh-btn').click(function(){
-            lang='zh'
-            nameKey= 'name'
+        //语言按钮点击时，切换按钮样式
+        $('.lang-head .btn').click(function(e){
+            $('.lang-head .btn').removeClass('active');
+            $(this).addClass('active');
+            //TODO 修改语言值
+            lang = $(this).attr('id')
+            if(lang == 'jp') {
+                nameKey= 'jpName'
+            } else {
+                nameKey= 'name'
+            }
             initView();
-        })
-        $('#lang-jp-btn').click(function(){
-            lang='jp'
-            nameKey= 'jpName'
-            initView();
-        })
+        });
 
         $('#events').change(function() {
             typeIndex=$("#events ").get(0).selectedIndex;

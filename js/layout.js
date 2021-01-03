@@ -1,12 +1,5 @@
 $(document).ready(function(){
-    //语言按钮点击时，切换按钮样式
-    $('.lang-head .btn').click(function(e){
-        $('.lang-head .btn').removeClass('active');
-        $(this).addClass('active');
-        //TODO 修改语言值
-        lang = $(this).attr('id')
-        initView();
-    });
+    
     // 活动类型被点击的时候
     $('.event-type').click(function(){
         
