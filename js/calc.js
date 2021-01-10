@@ -263,7 +263,7 @@ $(document).ready(function(){
             $("#result-div").show();
 
             $("#result-day").html(restDay)
-            $("#result-type").html($("#card-type").find("option:selected").text())
+            $("#result-type").html($("#second-events").find("option:selected").text())
             $("#result-count").html(resultCount)
             var type = types[typeIndex]
             var hp = type['hp'];
@@ -275,6 +275,7 @@ $(document).ready(function(){
 
     function showZero(){
         $("#result-div").show();
+        $("#result-event").html($("#calc-event-type").html()+$("#card-type").find("option:selected").text());
         $("#result-day").html($("#rest-time").html().split("天")[0])
         $("#result-type").html($("#card-type").find("option:selected").text())
         $("#result-count").html(0)
@@ -310,7 +311,7 @@ $(document).ready(function(){
         } else {
             restDay = 0;
         }
-        var html = d + " 天" + h + " 时";
+        var html = d + " 天" + h + " 时 "+ m + " 分";
         // var html = d + " 天" + h + " 时" + m + " 分" + s + " 秒";
         return html;
     }

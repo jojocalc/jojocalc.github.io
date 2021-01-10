@@ -11,6 +11,9 @@ body{
 .hint{
     color: red;
 }
+#result-div{
+    margin-top: 10px;
+}
 #result-div label{
     color: red; 
     font-weight: bold;

@@ -80,7 +80,10 @@
             <!-- 地图全推默认78 -->
             <input id="finish-all" type="radio" name="mission-num" value="finish-all" checked="true"/><label for="finish-all" data-lang="finish.map.mission">地图全推</label>
             <!-- 自己输入,最小值为0，最大值为26 -->
-            <input id="unfinish" type="radio" name="mission-num"  value="unfinish"/><label for="unfinish" data-lang="finish.custom.mission">地图没推完</label><input id="part-mission" type="number" min="0" max="26" value="0" />
+            <input id="unfinish" type="radio" name="mission-num"  value="unfinish"/>
+            <label for="unfinish" data-lang="finish.custom.mission">地图没推完，已推</label>
+            <input id="part-mission" type="number" min="0" max="26" value="0" />
+            <label for="unfinish" data-lang="mission.unit">关</label>
         </div>
 
         <div class="calc-div"><span data-lang="add.mission.num">附加次数： </span>
@@ -97,20 +100,22 @@
 
     <!-- 计算结果 -->
     <div id="result-div" class="calc-div" hidden="true">
-            <span>结果：距离活动结束还剩</span>
-            <label id="result-day"> </label>天,
-            要拿到<label id="result-type"> </label>
-            还需要<label id="result-count"> </label>次,
+            <span>结果：</span></br>
+            当前活动<label id="result-event"> </label>,</br>
+            距离活动结束还剩<label id="result-day"> </label>天,</br>
+            要拿到<label id="result-type"> </label></br>
+            除去免费次数，还需要推关<label id="result-count"> </label>
+            次,花费DP<label id="result-dp"> </label>点
             花费体力<label id="result-hp"> </label>点,
-            花费<label id="result-dp"> </label>DP
+            
         <div>
 
         </br>
         </br>
         <!-- 提醒和描述 -->
-        <div class="calc-div"><span class="hint">每购买3关需要5DP</span></div>
+        <!-- <div class="calc-div"><span class="hint">每购买3关需要5DP</span></div>
         <div class="calc-div"><span class="hint">计算方式是： </span></div>
-        <div class="calc-div"><span class="hint">结果 = ((档线 - 现有代币 - (剩余天数 * 每天推关数 * 120)) ÷ [代币数/关] ÷ 3) x 5</span></div>
+        <div class="calc-div"><span class="hint">结果 = ((档线 - 现有代币 - (剩余天数 * 每天推关数 * 120)) ÷ [代币数/关] ÷ 3) x 5</span></div> -->
     </div>
 </body>
 <script src="js/jquery.js"></script>
