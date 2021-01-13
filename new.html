@@ -73,8 +73,8 @@
         <div class="calc-div"><span data-lang="line.text">档线：</span><input id="line" value="95000" disabled='true' size="12" /></div>
         <div class="calc-div"><img src="imgs/temp.jpg"></div>
         <!-- 最小值为0，需要校验负数 -->
-    <div class="calc-div"><span data-lang="own.db.text">现有代币：</span><input type="number" id="current-db" min="0" value="0" /></div>
-    <div class="calc-div"><span data-lang="db.per.mission">代币数/关：</span> <input type="number" id="token"  min="120" value="120"/></div>
+    <div class="calc-div"><span data-lang="own.db.text">现有代币：</span><input type="number" id="current-db" min="0"  /></div>
+    <div class="calc-div"><span data-lang="db.per.mission">代币数/关：</span> <input type="number" id="token"  min="120" /></div>
 
     <div class="calc-div"><span data-lang="finish.day.mission">每天推关数： </span>
             <!-- 地图全推默认78 -->
@@ -100,22 +100,31 @@
 
     <!-- 计算结果 -->
     <div id="result-div" class="calc-div" hidden="true">
-            <span>结果：</span></br>
-            当前活动<label id="result-event"> </label>,</br>
-            距离活动结束还剩<label id="result-day"> </label>天,</br>
-            要拿到<label id="result-type"> </label></br>
-            除去免费次数，还需要推关<label id="result-count"> </label>
-            次,花费DP<label id="result-dp"> </label>点
-            花费体力<label id="result-hp"> </label>点,
-            
-        <div>
-
+        <div id="footer-div">
+            <label data-lang="footer.result.text">结果：</label></br>
+            <label data-lang="footer.result.current.mission">当前活动 </label>
+            <label id="result-event" class="result"> </label>,</br>
+            <label data-lang="footer.result.mission.deadline">距离活动结束还剩 </label>
+            <label id="result-day" class="result"> </label> 
+            <label data-lang="footer.day.text">天,</label></br>
+            <label data-lang="footer.get.text">要拿到 </label>
+            <label id="result-type" class="result"> </label></br>
+            <label data-lang="footer.mission.hint">除去免费次数，还需要推关 </label>
+            <label id="result-count" class="result"> </label>
+            <label data-lang="footer.result.cost">次,花费DP </label>
+            <label id="result-dp" class="result"> </label> 
+            <label data-lang="footer.result.unit">点 </label>
+            <label data-lang="footer.result.hp.cost">花费体力 </label>
+            <label id="result-hp" class="result"> </label> 
+            <label data-lang="footer.result.unit">点 </label>
+        </div>   
         </br>
         </br>
         <!-- 提醒和描述 -->
-        <!-- <div class="calc-div"><span class="hint">每购买3关需要5DP</span></div>
-        <div class="calc-div"><span class="hint">计算方式是： </span></div>
-        <div class="calc-div"><span class="hint">结果 = ((档线 - 现有代币 - (剩余天数 * 每天推关数 * 120)) ÷ [代币数/关] ÷ 3) x 5</span></div> -->
+        <div id="footer-hint-div">
+            <label id="footer-hint-label" data-lang="footer.hint" hidden="true">备注： 体力购买所需DP不计入</label>
+            <label id="footer-lonely-hint" data-lang="footer.lonely.hint" hidden="true">备注： 注意事项不能同一天无缝开次数的</label>
+        </div>
     </div>
 </body>
 <script src="js/jquery.js"></script>

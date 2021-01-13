@@ -100,6 +100,51 @@ $(document).ready(function(){
     }
 
     function initListener(){
+
+        // 活动类型被点击的时候
+        $('.event-type').click(function(){
+                
+            // 隐藏标题界面、显示计算界面
+            $('.index-only').hide();
+            $('.event-type').hide();
+            $('.calc-content').show();
+
+            // 修改计算界面显示标题
+            $('#calc-event-type').text($(this).text());
+
+            //特殊处理，如果是Pop才可以修改总加成数
+            if($(this).text() == "Pop Quiz") {
+                $("#token").val("");
+                $("#token").attr('disabled', false);
+            } else if ($(this).text()=="Lonely Devil") {
+                $("#token").val("120");
+                $("#token").attr('disabled', true);
+            } else if($(this).text()=="Birthday Events"){
+                $("#token").val("12");
+                $("#token").attr('disabled', true);
+            }
+
+
+            // 修改活动选择值
+            typeIndex = $(this).attr('index');
+            type = types[typeIndex]
+            events = type['events']
+            $("#second-events").empty();
+            $.each(events, function(p1, p2) {
+                var option = $('<option>'+this[nameKey]+'</option>');
+                $("#second-events").append(option)
+            }) 
+            initView();
+        });
+
+        $('#back-btn').click(function(){
+            $('.index-only').show();
+            $('.event-type').show();
+            $('.calc-content').hide();
+            $("#result-div").hide();
+        })
+
+
         //语言按钮点击时，切换按钮样式
         $('.lang-head .btn').click(function(e){
             $('.lang-head .btn').removeClass('active');
@@ -216,7 +261,7 @@ $(document).ready(function(){
                     return
                 }
             }
-            var currentDb = $("#current-db").val();
+            var currentDb = $("#current-db").val()==""?0:$("#current-db").val();
             var mission = 0;
             var permission = 3;
             var dp = 5;
@@ -228,7 +273,14 @@ $(document).ready(function(){
             //差值 = 档线-总代币
             var result = line - currentDb;
             //代币数/关
-            var token = $("#token").val();
+            var token = $("#token").val()==""?0:$("#token").val();
+
+            //检查token是否为0
+            if(token == 0) {
+                alert("请输入正确的加成数")
+                return
+            }
+
             //如果小于0 就返回0
             if(result <= 0) {
                 showZero();
@@ -261,26 +313,39 @@ $(document).ready(function(){
             result = resultCount * dp;
 
             $("#result-div").show();
-
+            $("#result-event").html($("#calc-event-type").html()+ " - " +$("#second-events").find("option:selected").text());
             $("#result-day").html(restDay)
-            $("#result-type").html($("#second-events").find("option:selected").text())
+            $("#result-type").html($("#card-type").find("option:selected").text())
             $("#result-count").html(resultCount)
             var type = types[typeIndex]
             var hp = type['hp'];
             $("#result-hp").html(resultCount*hp);
             $("#result-dp").html(result);
-        
+            if(typeIndex == 1) {
+                $("#footer-hint-label").hide();
+                $("#footer-lonely-hint").show();
+            } else {
+                $("#footer-hint-label").show();
+                $("#footer-lonely-hint").hide();
+            }
         });
     }
 
     function showZero(){
         $("#result-div").show();
-        $("#result-event").html($("#calc-event-type").html()+$("#card-type").find("option:selected").text());
+        $("#result-event").html($("#calc-event-type").html()+ " - " +$("#second-events").find("option:selected").text());
         $("#result-day").html($("#rest-time").html().split("天")[0])
         $("#result-type").html($("#card-type").find("option:selected").text())
         $("#result-count").html(0)
         $("#result-hp").html(0);
         $("#result-dp").html(0);
+        if(typeIndex == 1) {
+            $("#footer-hint-label").hide();
+            $("#footer-lonely-hint").show();
+        } else {
+            $("#footer-hint-label").show();
+            $("#footer-lonely-hint").hide();
+        }
     }
 
     /**

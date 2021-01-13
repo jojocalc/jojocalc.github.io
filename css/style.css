@@ -14,7 +14,7 @@ body{
 #result-div{
     margin-top: 10px;
 }
-#result-div label{
+#result-div .result{
     color: red; 
     font-weight: bold;
 }
