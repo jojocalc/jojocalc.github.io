@@ -324,9 +324,14 @@ $(document).ready(function(){
             if(typeIndex == 1) {
                 $("#footer-hint-label").hide();
                 $("#footer-lonely-hint").show();
+                $("#footer-lonely-result").show();
+                var ld = Math.ceil(resultCount / (mission * 5));
+                $("#result-extra-count").html(ld);
+                $("#result-extra-ld").html(ld);
             } else {
                 $("#footer-hint-label").show();
                 $("#footer-lonely-hint").hide();
+                $("#footer-lonely-result").hide();
             }
         });
     }
@@ -394,13 +399,16 @@ $(document).ready(function(){
               }
             }
           });
-
+        
         $('#input-end-time').cxCalendar({
             type: 'datetime',
             endDate: 2025,
             format: 'Y/m/d H:i:s',
             startDate: 2020,
             language: lang
+        },function(api){
+            cxCalendarApi = api;
+            console.log(api);
         });
     }
 
