@@ -2,12 +2,12 @@
 <html lang="zh">
 <head>
     <link rel="stylesheet" type="text/css" href="css/style.css">
-        <link rel="stylesheet" type="text/css" href="css/cxcalendar.css">
-        <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
-        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Obey Me!活动计算器</title>
+    <link rel="stylesheet" type="text/css" href="css/cxcalendar.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Obey Me!活动计算器</title>
 </head>
 <body>
     <!-- 语言设置 -->
@@ -71,7 +71,7 @@
         </div>
         <!-- 根据卡牌类型变 -->
         <div class="calc-div"><span data-lang="line.text">档线：</span><input id="line" value="95000" disabled='true' size="12" /></div>
-        <div class="calc-div"><img src="imgs/temp.jpg"></div>
+        <div class="calc-div"><img id="card-img" src="imgs/temp.jpg"></div>
         <!-- 最小值为0，需要校验负数 -->
     <div class="calc-div"><span data-lang="own.db.text">现有代币：</span><input type="number" id="current-db" min="0"  /></div>
     <div class="calc-div"><span data-lang="db.per.mission">代币数/关：</span> <input type="number" id="token"  min="120" /></div>
@@ -143,5 +143,4 @@
 <script src="js/cxcalendar.languages.js"></script>
 <script src="js/jquery.i18n.properties.min.js"></script>
 <script src="js/calc.js"></script>
-<script src="js/layout.js"></script>
 </html>

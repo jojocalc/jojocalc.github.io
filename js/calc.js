@@ -97,6 +97,8 @@ $(document).ready(function(){
         $("#current-event").html($('#events').val() + ' - ' + $("#second-events").val())
         //填充档线
         $("#line").val($("#card-type").val())
+        // $("#card-img").attr("src",)
+        //TODO 图片切换
     }
 
     function initListener(){
@@ -214,6 +216,7 @@ $(document).ready(function(){
                 $("#line").val($(this).val())
                 $("#result-div").hide();
             }
+            
         })
 
         /**
@@ -414,7 +417,7 @@ $(document).ready(function(){
 
     function getEndTime(curevent){
         var endTime;
-        if(curevent['endDate'] == "") {
+        if(typeIndex == 1) {
             $("#start-time").hide();
             $("#end-time").hide();
             $("#input-end-date").show();
