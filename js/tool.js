@@ -31,12 +31,31 @@ $(document).ready(function () {
     // "hp": 8,
     // "events":[] -->
 
-
+    function download() {
+        //获取数据的逻辑
+        var blob = new Blob([JSON.stringify(jsonData)]);
+        //对于Blob对象，我们可以创建出一个URL来访问它。使用URL对象的createObjectURL方法。
+        var a = document.createElement('a');
+        a.download = 'data.json';
+        a.href = window.URL.createObjectURL(blob);
+        a.click()
+    }
 
 
     function layout() {
+        var downloadBtn = $('<button>');
+        downloadBtn.text("下载数据");
+        $('body').append(downloadBtn)
+        downloadBtn.click(function () {
+            download();
+        })
+
+        addWildLine();
+
         var types = jsonData['types']
         $.each(types, function (p1, p2) {
+
+            var typeData = this;
 
             //添加标题
             var typeUl = $('<h1 class="event-type">');
@@ -53,6 +72,9 @@ $(document).ready(function () {
             typeDiv.append(nameLabel)
             typeDiv.append(nameInput)
 
+            setDataValue(typeData, "name", nameInput)
+
+
             // 日文名
             var jpNameLabel = $('<label>');
             jpNameLabel.text('日文名:')
@@ -60,6 +82,8 @@ $(document).ready(function () {
             jpNameInput.val(this['jpName'])
             typeDiv.append(jpNameLabel)
             typeDiv.append(jpNameInput)
+
+            setDataValue(typeData, "jpName", jpNameInput)
 
             // 体力值
             var hpLabel = $('<label>');
@@ -69,7 +93,9 @@ $(document).ready(function () {
             typeDiv.append(hpLabel)
             typeDiv.append(hpInput)
 
-            var addEventButton = $('<button>新增活动</button>')
+            setDataValue(typeData, "hp", hpInput)
+
+            var addEventButton = $('<button style="margin-top: 10px;">新增活动</button>')
 
             $('body').append(typeUl)
             $('body').append(typeDiv)
@@ -78,7 +104,7 @@ $(document).ready(function () {
             var typeContainer = $('<div>')
 
             $('body').append(typeContainer)
-            addLine();
+            addWildLine()
             // 活动数组
             var events = this['events'];
             $.each(events, function (p1, p2) {
@@ -89,13 +115,26 @@ $(document).ready(function () {
             //添加活动按钮
             addEventButton.click(function (event) {
                 creatEvent(emptyEvent, typeContainer)
-                var eventId = "#" + 
-                typeContainer.children("#test1");
+                events.push(emptyEvent);
             });
 
         });
 
 
+    }
+
+    /**
+     * 
+     * 将输入框数据赋值到数据对象中
+     * 
+     * @param {数据对象} dataInstance 
+     * @param {数据key} dataKey 
+     * @param {输入框对象} input 
+     */
+    function setDataValue(dataInstance, dataKey, input) {
+        input.blur(function () {
+            dataInstance[dataKey] = input.val();
+        });
     }
 
 
@@ -104,8 +143,13 @@ $(document).ready(function () {
         $('body').append(lineDiv);
     }
 
+    function addWildLine() {
+        var lineDiv = $('<div style="height: 5px; background-color: gray;"></div>')
+        $('body').append(lineDiv);
+    }
 
-    // 结构
+
+    // 活动结构
     var emptyEvent = {
         "name": "",
         "jpName": "",
@@ -113,7 +157,17 @@ $(document).ready(function () {
         "endDate": "",
         "startTime": "",
         "endTime": "",
+        "mission": "",
         "cards": []
+    }
+
+    // 卡片结构
+    var emptyCard = {
+        "type": "",
+        "name": "",
+        "jpName": "",
+        "image": "",
+        "line": 0
     }
 
     // <!-- 活动数组 -->
@@ -158,13 +212,17 @@ $(document).ready(function () {
         eventDiv.append(nameLabel)
         eventDiv.append(nameInput)
 
+        setDataValue(event, "name", nameInput);
+
         // 日文名
-        var endTimeLabel = $('<label>');
-        endTimeLabel.text('日文名:')
-        var endTimeInput = $('<input class="event-jpName">');
-        endTimeInput.val(event['jpName'])
-        eventDiv.append(endTimeLabel)
-        eventDiv.append(endTimeInput)
+        var jpNameLabel = $('<label>');
+        jpNameLabel.text('日文名:')
+        var jpNameInput = $('<input class="event-jpName">');
+        jpNameInput.val(event['jpName'])
+        eventDiv.append(jpNameLabel)
+        eventDiv.append(jpNameInput)
+
+        setDataValue(event, "jpName", jpNameInput);
 
         // ==============开始时间=============
         var startDateDiv = $('<div class="event-startdate-div">')
@@ -176,6 +234,8 @@ $(document).ready(function () {
         startDateDiv.append(startDateLabel)
         startDateDiv.append(startDateInput)
 
+        setDataValue(event, "startDate", startDateInput);
+
         //开始时间
         var startTimeLabel = $('<label>');
         startTimeLabel.text('开始时间:')
@@ -183,6 +243,8 @@ $(document).ready(function () {
         startTimeInput.val(event['startTime'])
         startDateDiv.append(startTimeLabel)
         startDateDiv.append(startTimeInput)
+
+        setDataValue(event, "startTime", startTimeInput);
 
         // ==============结束时间=============
         var endDateDiv = $('<div class="event-enddate-div">')
@@ -194,6 +256,8 @@ $(document).ready(function () {
         endDateDiv.append(endDateLabel)
         endDateDiv.append(endDateInput)
 
+        setDataValue(event, "endDate", endDateInput);
+
         //开始时间
         var endTimeLabel = $('<label>');
         endTimeLabel.text('结束时间:')
@@ -201,6 +265,8 @@ $(document).ready(function () {
         endTimeInput.val(event['endTime'])
         endDateDiv.append(endTimeLabel)
         endDateDiv.append(endTimeInput)
+
+        setDataValue(event, "endTime", endTimeInput);
 
         // ==============关卡数=============
         var missionDiv = $('<div class="mission-div">')
@@ -211,6 +277,8 @@ $(document).ready(function () {
         missionInput.val(event['mission'])
         missionDiv.append(missionLabel)
         missionDiv.append(missionInput)
+
+        setDataValue(event, "mission", missionInput);
 
         eventPevent.append(eventDiv)
         eventPevent.append(startDateDiv)
@@ -292,6 +360,7 @@ $(document).ready(function () {
                     td.appendTo(tr);
                 }
             }
+            cards.push(emptyCard);
         })
 
         table.on("dblclick", "td", function () {
@@ -305,31 +374,21 @@ $(document).ready(function () {
             oInput.focus();
             /* 2.失去焦点，这个td变为原来的text，value为修改过后的value */
             oInput.blur(function () {
+                //界面显示
                 td.text($(this).val())
+
+                //赋值
+                var col = td.parent("tr").find("td").index(td)
+                var row = td.parent().parent().find("tr").index(td.parent());
+                //需要去掉th数据
+                var cardData = cards[row - 1];
+                cardData[keys[col]] = $(this).val()
+            
+                //移除
                 $(this).remove();
             });
         });
 
     }
 
-    // <!-- 卡牌数组 -->
-    // <!-- {
-    //     "type": "UR(Demon)",
-    //     "name":"Not Taking It Off",
-    //     "jpName":"脱ぎたくない",
-    //     "image": "",
-    //     "line": 294000
-
-
-    // 收缩逻辑
-
-    function download() {
-        //TODO 获取数据的逻辑
-        var blob = new Blob([JSON.stringify(jsonData)]);
-        //对于Blob对象，我们可以创建出一个URL来访问它。使用URL对象的createObjectURL方法。
-        var a = document.createElement('a');
-        a.download = 'data.json';
-        a.href = window.URL.createObjectURL(blob);
-        a.click()
-    }
 });
