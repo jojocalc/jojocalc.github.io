@@ -109,12 +109,12 @@ $(document).ready(function () {
             var events = this['events'];
             $.each(events, function (p1, p2) {
                 // 活动数据
-                creatEvent(this, typeContainer)
+                creatEvent(typeData, this, typeContainer)
             })
 
             //添加活动按钮
             addEventButton.click(function (event) {
-                creatEvent(emptyEvent, typeContainer)
+                creatEvent(typeData, emptyEvent, typeContainer)
                 events.push(emptyEvent);
             });
 
@@ -130,10 +130,14 @@ $(document).ready(function () {
      * @param {数据对象} dataInstance 
      * @param {数据key} dataKey 
      * @param {输入框对象} input 
+     * @param {输入框对象} callBack 
      */
-    function setDataValue(dataInstance, dataKey, input) {
+    function setDataValue(dataInstance, dataKey, input, callBack) {
         input.blur(function () {
             dataInstance[dataKey] = input.val();
+            if (callBack) {
+                callBack();
+            }
         });
     }
 
@@ -180,16 +184,18 @@ $(document).ready(function () {
     // "mission": 26, 
     // "cards"-->
 
-    function creatEvent(event, container) {
+    function creatEvent(type, event, container) {
 
         //add opration div
         var buttonDiv = $('<div>')
 
         var delButton = $('<button cl-target="' + event['name'] + '" id="del">删除</button>')
         var hideButton = $('<button cl-target="' + event['name'] + '" id="hide">显示</button>')
+        var copyButton = $('<button cl-target="' + event['name'] + '" id="copy">复制</button>')
 
         buttonDiv.append(delButton)
         buttonDiv.append(hideButton)
+        buttonDiv.append(copyButton)
 
         container.append(buttonDiv);
 
@@ -212,7 +218,9 @@ $(document).ready(function () {
         eventDiv.append(nameLabel)
         eventDiv.append(nameInput)
 
-        setDataValue(event, "name", nameInput);
+        setDataValue(event, "name", nameInput, function () {
+            eventTitle.text(nameInput.val());
+        });
 
         // 日文名
         var jpNameLabel = $('<label>');
@@ -298,25 +306,36 @@ $(document).ready(function () {
         }
         $.each(cards, function (p1, p2) {
             // 卡牌数据(用表格来存储)
+            addTr(this);
+
+        })
+
+
+        function addTr(card) {
             var tr = $("<tr></tr>");
             tr.appendTo(table);
             for (var j = 0; j < keys.length; j++) {
-                val = this[keys[j]];
+                val = card[keys[j]];
                 if (j == keys.length - 1) {
                     var delTdBtn = $("<button>删除</button>")
+                    var copyTdBtn = $("<button>复制</button>")
                     var delTd = $("<td></td>");
                     delTd.append(delTdBtn);
+                    delTd.append(copyTdBtn);
                     delTdBtn.click(function () {
                         tr.remove();
                     })
+                    copyTdBtn.click(function () {
+                        addTr(card);
+                    })
                     delTd.appendTo(tr);
                 } else {
+                    val = val ? val : "";
                     var td = $("<td>" + val + "</td>");
                     td.appendTo(tr);
                 }
             }
-
-        })
+        }
 
         var addCardBtn = $('<button style="margin-top: 10px">新增卡片</button>')
         eventPevent.append(addCardBtn)
@@ -343,23 +362,16 @@ $(document).ready(function () {
             lineDiv.remove();
         });
 
+        copyButton.click(function () {
+            var newEvent = jQuery.extend(true, {}, event);
+            newEvent['name'] = "copy from " + newEvent['name']
+
+            type['events'].push(newEvent);
+            creatEvent(type, newEvent, container)
+        });
+
         addCardBtn.click(function () {
-            var tr = $("<tr></tr>");
-            tr.appendTo(table);
-            for (var j = 0; j < keys.length; j++) {
-                if (j == keys.length - 1) {
-                    var delTdBtn = $("<button>删除</button>")
-                    var delTd = $("<td></td>");
-                    delTd.append(delTdBtn);
-                    delTdBtn.click(function () {
-                        tr.remove();
-                    })
-                    delTd.appendTo(tr);
-                } else {
-                    var td = $("<td></td>");
-                    td.appendTo(tr);
-                }
-            }
+            addTr(emptyCard)
             cards.push(emptyCard);
         })
 
@@ -383,7 +395,7 @@ $(document).ready(function () {
                 //需要去掉th数据
                 var cardData = cards[row - 1];
                 cardData[keys[col]] = $(this).val()
-            
+
                 //移除
                 $(this).remove();
             });
