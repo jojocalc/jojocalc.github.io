@@ -19,6 +19,19 @@ var event = {}
 var cxCalendarApi;
 
 
+var compare = function (prop) {
+    return function (obj1, obj2) {
+        var val1 = obj1[prop];
+        var val2 = obj2[prop];if (val1 < val2) {
+            return 1;
+        } else if (val1 > val2) {
+            return -1;
+        } else {
+            return 0;
+        }            
+    } 
+}
+
 
 $(document).ready(function () {
 
@@ -95,6 +108,13 @@ $(document).ready(function () {
         type = types[typeIndex]
         events = type['events']
         $("#second-events").empty();
+
+        if(typeIndex == 1) {
+            events.sort(compare('startDate'))
+        } else {
+            events.sort(compare('endDate'))
+        }
+        
         $.each(events, function (p1, p2) {
             var option = $('<option>' + this[nameKey] + '</option>');
             $("#second-events").append(option)
@@ -156,6 +176,11 @@ $(document).ready(function () {
             typeIndex = $(this).attr('index');
             type = types[typeIndex]
             events = type['events']
+            if(typeIndex == 1) {
+                events.sort(compare('startDate'))
+            } else {
+                events.sort(compare('endDate'))
+            }
             $("#second-events").empty();
             $.each(events, function (p1, p2) {
                 var option = $('<option>' + this[nameKey] + '</option>');
@@ -192,6 +217,13 @@ $(document).ready(function () {
             type = types[typeIndex]
             events = type['events']
             $("#second-events").empty();
+
+            if(typeIndex == 1) {
+                events.sort(compare('startDate'))
+            } else {
+                events.sort(compare('endDate'))
+            }
+            
             $.each(events, function (p1, p2) {
                 var option = $('<option>' + this[nameKey] + '</option>');
                 $("#second-events").append(option)
