@@ -65,7 +65,7 @@ $(document).ready(function () {
             var typeDiv = $('<div class="type-div">')
 
             //中文名
-            var nameLabel = $('<label>');
+            var nameLabel = $('<label class="event-lable">');
             nameLabel.text('中文名(英文名):')
             var nameInput = $('<input class="type-name">');
             nameInput.val(this['name'])
@@ -76,7 +76,7 @@ $(document).ready(function () {
 
 
             // 日文名
-            var jpNameLabel = $('<label>');
+            var jpNameLabel = $('<label class="event-lable">');
             jpNameLabel.text('日文名:')
             var jpNameInput = $('<input class="type-jpName">');
             jpNameInput.val(this['jpName'])
@@ -86,7 +86,7 @@ $(document).ready(function () {
             setDataValue(typeData, "jpName", jpNameInput)
 
             // 体力值
-            var hpLabel = $('<label>');
+            var hpLabel = $('<label class="event-lable">');
             hpLabel.text('每关消耗的体力值:')
             var hpInput = $('<input class="type-hp">');
             hpInput.val(this['hp'])
@@ -211,7 +211,7 @@ $(document).ready(function () {
 
         // ==============名称=============
         //中文名
-        var nameLabel = $('<label>');
+        var nameLabel = $('<label class="event-lable">');
         nameLabel.text('中文名(英文名):')
         var nameInput = $('<input class="event-name">');
         nameInput.val(event['name'])
@@ -223,9 +223,9 @@ $(document).ready(function () {
         });
 
         // 日文名
-        var jpNameLabel = $('<label>');
+        var jpNameLabel = $('<label class="event-lable">');
         jpNameLabel.text('日文名:')
-        var jpNameInput = $('<input class="event-jpName">');
+        var jpNameInput = $('<input class="event-jpName event-lable">');
         jpNameInput.val(event['jpName'])
         eventDiv.append(jpNameLabel)
         eventDiv.append(jpNameInput)
@@ -235,7 +235,7 @@ $(document).ready(function () {
         // ==============开始时间=============
         var startDateDiv = $('<div class="event-startdate-div">')
         //开始日期
-        var startDateLabel = $('<label>');
+        var startDateLabel = $('<label class="event-lable">');
         startDateLabel.text('开始日期:')
         var startDateInput = $('<input class="start-date">');
         startDateInput.val(event['startDate'])
@@ -245,7 +245,7 @@ $(document).ready(function () {
         setDataValue(event, "startDate", startDateInput);
 
         //开始时间
-        var startTimeLabel = $('<label>');
+        var startTimeLabel = $('<label class="event-lable">');
         startTimeLabel.text('开始时间:')
         var startTimeInput = $('<input class="start-time">');
         startTimeInput.val(event['startTime'])
@@ -257,7 +257,7 @@ $(document).ready(function () {
         // ==============结束时间=============
         var endDateDiv = $('<div class="event-enddate-div">')
         //开始日期
-        var endDateLabel = $('<label>');
+        var endDateLabel = $('<label class="event-lable">');
         endDateLabel.text('结束日期:')
         var endDateInput = $('<input class="end-date">');
         endDateInput.val(event['endDate'])
@@ -267,7 +267,7 @@ $(document).ready(function () {
         setDataValue(event, "endDate", endDateInput);
 
         //开始时间
-        var endTimeLabel = $('<label>');
+        var endTimeLabel = $('<label class="event-lable">');
         endTimeLabel.text('结束时间:')
         var endTimeInput = $('<input class="end-time">');
         endTimeInput.val(event['endTime'])
@@ -279,14 +279,23 @@ $(document).ready(function () {
         // ==============关卡数=============
         var missionDiv = $('<div class="mission-div">')
         //关卡数
-        var missionLabel = $('<label>');
+        var missionLabel = $('<label class="event-lable">');
         missionLabel.text('关卡数:')
         var missionInput = $('<input class="mission">');
         missionInput.val(event['mission'])
         missionDiv.append(missionLabel)
         missionDiv.append(missionInput)
 
+        //关卡数
+        var imageDirLabel = $('<label class="event-lable">');
+        imageDirLabel.text('图片目录:')
+        var imageDirInput = $('<input class="image-dir">');
+        imageDirInput.val(event['imageDir'])
+        missionDiv.append(imageDirLabel)
+        missionDiv.append(imageDirInput)
+
         setDataValue(event, "mission", missionInput);
+        setDataValue(event, "imageDir", imageDirInput);
 
         eventPevent.append(eventDiv)
         eventPevent.append(startDateDiv)
