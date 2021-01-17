@@ -10,7 +10,7 @@ $(document).ready(function () {
     // 读取data.js
     function initData() {
         $.ajax({
-            url: "data/data.json",
+            url: "data/data.json?_=" + Math.random(),
             type: "GET",
             dataType: "json",
             success: function (data) {
