@@ -335,7 +335,7 @@ $(document).ready(function () {
             //档线
             var line = $("#line").val();
             //差值 = 档线-总代币
-            var result = line - currentDb;
+            var result = parseInt(line) - parseInt(currentDb);
             //代币数/关
             var token = $("#token").val() == "" ? 0 : $("#token").val();
 
