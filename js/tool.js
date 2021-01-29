@@ -107,9 +107,9 @@ $(document).ready(function () {
             addWildLine()
             // 活动数组
             var events = this['events'];
-            $.each(events, function (p1, p2) {
+            $.each(events, function (index, object) {
                 // 活动数据
-                creatEvent(typeData, this, typeContainer)
+                creatEvent(typeData, this, typeContainer, index)
             })
 
             //添加活动按钮
@@ -184,7 +184,7 @@ $(document).ready(function () {
     // "mission": 26, 
     // "cards"-->
 
-    function creatEvent(type, event, container) {
+    function creatEvent(type, event, container, index) {
 
         //add opration div
         var buttonDiv = $('<div>')
@@ -315,12 +315,12 @@ $(document).ready(function () {
         }
         $.each(cards, function (p1, p2) {
             // 卡牌数据(用表格来存储)
-            addTr(this);
+            addTr(this, p1);
 
         })
 
 
-        function addTr(card) {
+        function addTr(card, cardIndex) {
             var tr = $("<tr></tr>");
             tr.appendTo(table);
             for (var j = 0; j < keys.length; j++) {
@@ -333,9 +333,10 @@ $(document).ready(function () {
                     delTd.append(copyTdBtn);
                     delTdBtn.click(function () {
                         tr.remove();
+                        cards.splice(cardIndex, 1)
                     })
                     copyTdBtn.click(function () {
-                        addTr(card);
+                        addTr(card, this.cardIndex);
                     })
                     delTd.appendTo(tr);
                 } else {
@@ -365,11 +366,13 @@ $(document).ready(function () {
             }
         });
 
-        delButton.click(function (event) {
+        delButton.click(function () {
             buttonDiv.remove();
             eventPevent.remove();
             lineDiv.remove();
+            type['events'].splice(index, 1);
         });
+
 
         copyButton.click(function () {
             var newEvent = jQuery.extend(true, {}, event);
