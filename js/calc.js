@@ -334,6 +334,7 @@ $(document).ready(function () {
             this.event = events[eventIndex]
             //档线
             var line = $("#line").val();
+            line = line.replace(",","");
             //差值 = 档线-总代币
             var result = parseInt(line) - parseInt(currentDb);
             //代币数/关

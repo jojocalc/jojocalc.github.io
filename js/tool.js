@@ -3,8 +3,13 @@ var resultData;
 $(document).ready(function () {
 
 
+    jsonData = JSON.parse(localStorage.getItem("data"));
     // 初始化数据
-    initData();
+    if (jsonData == undefined) {
+        initData();
+    } else {
+        layout();
+    }
 
 
     // 读取data.js
@@ -41,14 +46,28 @@ $(document).ready(function () {
         a.click()
     }
 
+    function save() {
+        var saveData = JSON.stringify(jsonData);
+        localStorage.setItem("data", saveData);
+    }
+
 
     function layout() {
         var downloadBtn = $('<button>');
         downloadBtn.text("下载数据");
         $('body').append(downloadBtn)
         downloadBtn.click(function () {
+            save();
             download();
         })
+
+        var saveBtn = $('<button>');
+        saveBtn.text("保存");
+        $('body').append(saveBtn)
+        saveBtn.click(function () {
+            save();
+        })
+
 
         addWildLine();
 
