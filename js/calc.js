@@ -329,6 +329,8 @@ $(document).ready(function () {
             var mission = 0;
             var permission = 3;
             var dp = 5;
+            //总次数
+            var messionCount = 0;
             type = types[typeIndex]
             events = type['events']
             this.event = events[eventIndex]
@@ -372,6 +374,8 @@ $(document).ready(function () {
                 return
             }
             console.log("关卡数：" + resultCount)
+            
+            messionCount = resultCount;
             //每3关的dp数 = 关卡数 除以 3
             resultCount = Math.ceil(resultCount / permission)
             // 最终结果 = 每3关的dp数 * 5
@@ -384,7 +388,7 @@ $(document).ready(function () {
             $("#result-count").html(resultCount)
             var type = types[typeIndex]
             var hp = type['hp'];
-            $("#result-hp").html(resultCount * hp);
+            $("#result-hp").html(messionCount * hp);
             $("#result-dp").html(result);
             if (typeIndex == 1) {
                 $("#footer-hint-label").hide();
