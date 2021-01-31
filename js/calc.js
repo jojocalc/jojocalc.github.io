@@ -385,7 +385,7 @@ $(document).ready(function () {
             $("#result-event").html($("#calc-event-type").html() + " - " + $("#second-events").find("option:selected").text());
             $("#result-day").html(restDay)
             $("#result-type").html($("#card-type").find("option:selected").text())
-            $("#result-count").html(resultCount)
+            $("#result-count").html(messionCount)
             var type = types[typeIndex]
             var hp = type['hp'];
             $("#result-hp").html(messionCount * hp);
