@@ -30,7 +30,7 @@ $(document).ready(function () {
         })
     }
 
-    // <!-- 三个类型 中文名、日文名、每关消耗的体力-->
+    // <!-- 三个类型 中文名、日文名、每次消耗的体力-->
     // <!-- "name":"Pop quiz",
     // "jpName":"Pop quiz",
     // "hp": 8,
@@ -106,7 +106,7 @@ $(document).ready(function () {
 
             // 体力值
             var hpLabel = $('<label class="event-lable">');
-            hpLabel.text('每关消耗的体力值:')
+            hpLabel.text('每次消耗的体力值:')
             var hpInput = $('<input class="type-hp">');
             hpInput.val(this['hp'])
             typeDiv.append(hpLabel)
