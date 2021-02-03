@@ -409,7 +409,7 @@ $(document).ready(function () {
     function showZero() {
         $("#result-div").show();
         $("#result-event").html($("#calc-event-type").html() + " - " + $("#second-events").find("option:selected").text());
-        $("#result-day").html($("#rest-time").html().split("天")[0])
+        $("#result-day").html(restDay)
         $("#result-type").html($("#card-type").find("option:selected").text())
         $("#result-count").html(0)
         $("#result-hp").html(0);
