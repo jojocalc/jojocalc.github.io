@@ -1,0 +1,20 @@
+{
+    "touchData": [{
+            "name": "Lucifer",
+            "jpName": "ルシファー",
+            "imageDir": "other/touch/",
+            "image": "default.png"
+        },
+        {
+            "name": "Diavolo",
+            "jpName": "Diavolo",
+            "imageDir": "other/touch/",
+            "image": "Diavolo.png"
+        }, {
+            "name": "Mammon",
+            "jpName": "Mammon",
+            "imageDir": "other/touch/",
+            "image": "Mammon.png"
+        }
+    ]
+}

@@ -39,8 +39,19 @@ body{
 .event-title {
     margin-top: 40px;
 }
+.other-title{
+    margin-top: 40px;
+}
 /* 活动类型的样式 */
 .event-type {
+    margin-top: 10px;
+    margin-left: 100px;
+    margin-right: 100px;
+    padding: 10px;
+    border-radius: 5px;
+    border: solid 1px;
+}
+.other-type {
     margin-top: 10px;
     margin-left: 100px;
     margin-right: 100px;
@@ -62,4 +73,25 @@ body{
 /* 计算页面元素 */
 .calc-content {
     margin-top: 50px;
+}
+/* 摸摸乐页面元素 */
+.touch-content{
+    margin-top: 50px;
+}
+/* 摸摸乐返回按钮 */
+#other-back-btn{
+    margin-top: 20px;
+}
+/* 摸摸乐元素间隔 */
+.touch-div{
+    margin-top: 15px;
+}
+
+/* 摸摸乐图片 */
+.touch-div img {
+    width: 205px;
+    height: 277px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
 }

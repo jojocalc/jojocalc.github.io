@@ -27,6 +27,16 @@
         <div class="event-type" index='1' id="Lonely Devil" >Lonely Devil</div>
         <div class="event-type" index='2' id="Birthday Events" >Birthday Events</div>
     </div>
+
+    <!-- 摸摸乐 -->
+    <div class="other-title index-only">
+        <h4><label data-lang="other.title">其他</label></h4>
+    </div>
+    <div calss="other-list index-only">
+        <div data-lang="other.touch.happy" class="other-type" index='0' id="touch-happy" >摸摸乐</div>
+    </div>
+
+
     <div class="desc-title index-only">
         <h4><label data-lang="desc-title">使用说明</label></h4>
     </div>
@@ -73,69 +83,86 @@
         <div class="calc-div"><span data-lang="line.text">档线：</span><input id="line" value="95000" disabled='true' size="12" /></div>
         <div class="calc-div"><img id="card-img" src="imgs/default.jpg"></div>
         <!-- 最小值为0，需要校验负数 -->
-    <div class="calc-div"><span data-lang="own.db.text">现有代币：</span><input type="number" id="current-db" min="0"  /></div>
-    <div class="calc-div"><span data-lang="db.per.mission">代币数/关：</span> <input type="number" id="token"  min="120" /></div>
+        <div class="calc-div"><span data-lang="own.db.text">现有代币：</span><input type="number" id="current-db" min="0"  /></div>
+        <div class="calc-div"><span data-lang="db.per.mission">代币数/关：</span> <input type="number" id="token"  min="120" /></div>
 
-    <div class="calc-div"><span data-lang="finish.day.mission">每天推关数： </span>
-            <!-- 地图全推默认78 -->
-            <input id="finish-all" type="radio" name="mission-num" value="finish-all" checked="true"/><label for="finish-all" data-lang="finish.map.mission">地图全推</label>
-            <!-- 自己输入,最小值为0，最大值为26 -->
-            <input id="unfinish" type="radio" name="mission-num"  value="unfinish"/>
-            <label for="unfinish" data-lang="finish.custom.mission">地图没推完，已推</label>
-            <input id="part-mission" type="number" min="0" max="26" value="0" />
-            <label for="unfinish" data-lang="mission.unit">关</label>
-        </div>
-
-        <div class="calc-div"><span data-lang="add.mission.num">附加次数： </span>
-            <!-- 地图全推默认78 -->
-            <input id="add-ad" type="radio" name="add-num" value="5" /><label for="add-ad" data-lang="add.ad.mission.num">广告看完(+5次/天)</label>
-            <!-- 自己输入,最小值为0，最大值为26 -->
-            <input id="add-none" type="radio" name="add-num" value="0" checked="true" /><label for="add-none" data-lang="add.none.mission">无</label>
-        </div>
-        <!-- 计算按钮 -->
-    <div class="calc-div">
-        <button id="calc-btn" class="btn" data-lang="button.calc.text">计算结果</button>
-        <button id="back-btn" class="btn" data-lang="button.calc.back">返回首页</button>
-    </div>
-
-    <!-- 计算结果 -->
-    <div id="result-div" class="calc-div" hidden="true">
-        <div id="footer-div">
-            <label data-lang="footer.result.text">结果：</label></br>
-            <label data-lang="footer.result.current.mission">当前活动 </label>
-            <label id="result-event" class="result"> </label>,</br>
-            <label data-lang="footer.result.mission.deadline">距离活动结束还剩 </label>
-            <label id="result-day" class="result"> </label> 
-            <label data-lang="footer.day.text">天,</label></br>
-            <label data-lang="footer.get.text">要拿到 </label>
-            <label id="result-type" class="result"> </label></br>
-            <label data-lang="footer.mission.hint">除去免费次数，还需要推关 </label>
-            <label id="result-mession-count" class="result"> </label>
-            <label data-lang="footer.reset.mission.hint">次,重置关卡 </label>
-            <label id="result-count" class="result"> </label>
-            <label data-lang="footer.result.cost">次,花费DP </label>
-            <label id="result-dp" class="result"> </label> 
-            <label data-lang="footer.result.unit">点 </label>
-            <label data-lang="footer.result.hp.cost">花费体力 </label>
-            <label id="result-hp" class="result"> </label> 
-            <label data-lang="footer.result.unit">点 </label>
-            </br>
-            <div id="footer-lonely-result" hidden="true">
-                <label data-lang="footer.result-extra-hint">如多次开启活动, 则还需开启 </label>
-                <label id="result-extra-count" class="result"> </label>
-                <label data-lang="footer.result.extra.text"> 次, 花费 </label> 
-                <label id="result-extra-ld" class="result"> </label>
-                <label data-lang="footer.result.ld.text"> 张LD票 </label>
+        <div class="calc-div"><span data-lang="finish.day.mission">每天推关数： </span>
+                <!-- 地图全推默认78 -->
+                <input id="finish-all" type="radio" name="mission-num" value="finish-all" checked="true"/><label for="finish-all" data-lang="finish.map.mission">地图全推</label>
+                <!-- 自己输入,最小值为0，最大值为26 -->
+                <input id="unfinish" type="radio" name="mission-num"  value="unfinish"/>
+                <label for="unfinish" data-lang="finish.custom.mission">地图没推完，已推</label>
+                <input id="part-mission" type="number" min="0" max="26" value="0" />
+                <label for="unfinish" data-lang="mission.unit">关</label>
             </div>
-        </div>   
-        </br>
-        </br>
-        <!-- 提醒和描述 -->
-        <div id="footer-hint-div">
-            <label id="footer-hint-label" data-lang="footer.hint" hidden="true">备注： 体力购买所需DP不计入</label>
-            <label id="footer-lonely-hint" data-lang="footer.lonely.hint" hidden="true">备注： 注意事项不能同一天无缝开次数的</label>
+
+            <div class="calc-div"><span data-lang="add.mission.num">附加次数： </span>
+                <!-- 地图全推默认78 -->
+                <input id="add-ad" type="radio" name="add-num" value="5" /><label for="add-ad" data-lang="add.ad.mission.num">广告看完(+5次/天)</label>
+                <!-- 自己输入,最小值为0，最大值为26 -->
+                <input id="add-none" type="radio" name="add-num" value="0" checked="true" /><label for="add-none" data-lang="add.none.mission">无</label>
+            </div>
+            <!-- 计算按钮 -->
+        <div class="calc-div">
+            <button id="calc-btn" class="btn" data-lang="button.calc.text">计算结果</button>
+            <button id="back-btn" class="btn" data-lang="button.calc.back">返回首页</button>
+        </div>
+
+        <!-- 计算结果 -->
+        <div id="result-div" class="calc-div" hidden="true">
+            <div id="footer-div">
+                <label data-lang="footer.result.text">结果：</label></br>
+                <label data-lang="footer.result.current.mission">当前活动 </label>
+                <label id="result-event" class="result"> </label>,</br>
+                <label data-lang="footer.result.mission.deadline">距离活动结束还剩 </label>
+                <label id="result-day" class="result"> </label> 
+                <label data-lang="footer.day.text">天,</label></br>
+                <label data-lang="footer.get.text">要拿到 </label>
+                <label id="result-type" class="result"> </label></br>
+                <label data-lang="footer.mission.hint">除去免费次数，还需要推关 </label>
+                <label id="result-mession-count" class="result"> </label>
+                <label data-lang="footer.reset.mission.hint">次,重置关卡 </label>
+                <label id="result-count" class="result"> </label>
+                <label data-lang="footer.result.cost">次,花费DP </label>
+                <label id="result-dp" class="result"> </label> 
+                <label data-lang="footer.result.unit">点 </label>
+                <label data-lang="footer.result.hp.cost">花费体力 </label>
+                <label id="result-hp" class="result"> </label> 
+                <label data-lang="footer.result.unit">点 </label>
+                </br>
+                <div id="footer-lonely-result" hidden="true">
+                    <label data-lang="footer.result-extra-hint">如多次开启活动, 则还需开启 </label>
+                    <label id="result-extra-count" class="result"> </label>
+                    <label data-lang="footer.result.extra.text"> 次, 花费 </label> 
+                    <label id="result-extra-ld" class="result"> </label>
+                    <label data-lang="footer.result.ld.text"> 张LD票 </label>
+                </div>
+            </div>   
+            </br>
+            </br>
+            <!-- 提醒和描述 -->
+            <div id="footer-hint-div">
+                <label id="footer-hint-label" data-lang="footer.hint" hidden="true">备注： 体力购买所需DP不计入</label>
+                <label id="footer-lonely-hint" data-lang="footer.lonely.hint" hidden="true">备注： 注意事项不能同一天无缝开次数的</label>
+            </div>
         </div>
     </div>
+    <!-- 摸摸乐页面 -->
+    <div class="touch-content" style="display: none;">
+        <div class="touch-div">
+            <h2><label data-lang="other.touch.happy" id="touch-type">摸摸乐</label></h2>
+        </div>
+        <div class="touch-div">
+            <span data-lang="touch.name">今天你要摸谁？：</span>
+            <select id="touch-name"></select>
+        </div>
+        <div class="touch-div"><img id="touch-img" src="imgs/default.jpg"></div>
+        <div class="touch-div">
+            <button id="other-back-btn" class="btn" data-lang="button.calc.back">返回首页</button>
+        </div>
+    </div>
+
+
 </body>
 <script src="js/jquery.js"></script>
 <script src="js/jquery.min.js"></script>
@@ -145,4 +172,5 @@
 <script src="js/cxcalendar.languages.js"></script>
 <script src="js/jquery.i18n.properties.min.js"></script>
 <script src="js/calc.js"></script>
+<script src="js/touch.js"></script>
 </html>

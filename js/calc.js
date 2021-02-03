@@ -154,6 +154,7 @@ $(document).ready(function () {
             // 隐藏标题界面、显示计算界面
             $('.index-only').hide();
             $('.event-type').hide();
+            $('.other-type').hide();
             $('.calc-content').show();
 
             // 修改计算界面显示标题
@@ -192,6 +193,7 @@ $(document).ready(function () {
         $('#back-btn').click(function () {
             $('.index-only').show();
             $('.event-type').show();
+            $('.other-type').show();
             $('.calc-content').hide();
             $("#result-div").hide();
         })
