@@ -300,7 +300,7 @@ $(document).ready(function () {
             events = type['events']
             this.event = events[eventIndex]
             mission = this.event['mission']
-            if ($("#part-mission").val() > mission) {
+            if (parseInt($("#part-mission").val()) > mission) {
                 $("#part-mission").val(mission)
             }
         })
